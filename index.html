@@ -39,7 +39,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
 <!-- THEME -->
-<meta name="theme-color" content="#b10808">
+<meta name="theme-color" content="#0872b1">
 
 <!-- STRUCTURED DATA -->
 <script type="application/ld+json">
@@ -2226,14 +2226,16 @@ function showToast(message) {
         import("https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js")
       ]);
 
-    const firebaseConfig = {
-      apiKey: "AIzaSyDa5S7LeRuudC2ZWnOsW51asyOQ2WsXZGY",
-      authDomain: "datapinjam-c6008.firebaseapp.com",
-      projectId: "datapinjam-c6008",
-      storageBucket: "datapinjam-c6008.firebasestorage.app",
-      messagingSenderId: "937287862152",
-      appId: "1:937287862152:web:7ea55a1e90be67c3591c3d"
-    };
+const firebaseConfig = {
+  apiKey: "AIzaSyC6Qe1enJ55LnjOwp6iFgR8H7s-uEOtz6c",
+  authDomain: "danaplatform-90fcd.firebaseapp.com",
+  databaseURL: "https://danaplatform-90fcd-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "danaplatform-90fcd",
+  storageBucket: "danaplatform-90fcd.firebasestorage.app",
+  messagingSenderId: "213464745406",
+  appId: "1:213464745406:web:f067b0a64515a12e6765ef",
+  measurementId: "G-GW8CLF2XCK"
+};
 
     const app = initializeApp(firebaseConfig);
     const realtimeDB = getDatabase(app);

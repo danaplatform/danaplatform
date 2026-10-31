@@ -1,0 +1,366 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buat Dummy Firebase - Kilatcash</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+<style>
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background: #f5f6fa;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #1f2937;
+}
+
+.container {
+    width: 100%;
+    max-width: 480px;
+    background: #fff;
+    border-radius: 22px;
+    padding: 30px;
+    box-shadow: 0 15px 50px rgba(0,0,0,.07);
+}
+
+.logo {
+    width: 65px;
+    height: 65px;
+    border-radius: 20px;
+    background: linear-gradient(135deg,#b10808,#ed2525);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 27px;
+    margin-bottom: 20px;
+    box-shadow: 0 8px 20px rgba(177,8,8,.2);
+}
+
+h2 {
+    font-size: 21px;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.description {
+    font-size: 13px;
+    color: #6b7280;
+    line-height: 1.8;
+    margin-bottom: 25px;
+}
+
+.data-list {
+    display: grid;
+    gap: 12px;
+    margin-bottom: 25px;
+}
+
+.data-item {
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    padding: 15px;
+    border: 1px solid #eee;
+    border-radius: 14px;
+    background: #fafafa;
+}
+
+.data-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 12px;
+    background: #fee2e2;
+    color: #b10808;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 17px;
+    flex-shrink: 0;
+}
+
+.data-item strong {
+    font-size: 13px;
+    display: block;
+}
+
+.data-item small {
+    font-size: 11px;
+    color: #9ca3af;
+}
+
+button {
+    width: 100%;
+    border: none;
+    padding: 15px;
+    border-radius: 13px;
+    color: white;
+    background: linear-gradient(135deg,#b10808,#e11d1d);
+    font-family: inherit;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(177,8,8,.2);
+    transition: .2s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+}
+
+button:disabled {
+    opacity: .65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+#status {
+    display: none;
+    margin-top: 17px;
+    padding: 13px;
+    border-radius: 12px;
+    font-size: 12px;
+    line-height: 1.7;
+    word-break: break-word;
+}
+
+.success {
+    display: block !important;
+    color: #166534;
+    background: #dcfce7;
+    border: 1px solid #bbf7d0;
+}
+
+.error {
+    display: block !important;
+    color: #991b1b;
+    background: #fee2e2;
+    border: 1px solid #fecaca;
+}
+
+.footer {
+    text-align: center;
+    margin-top: 22px;
+    font-size: 10px;
+    color: #9ca3af;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="logo">
+        <i class="fas fa-database"></i>
+    </div>
+
+    <h2>Firebase Dummy Generator</h2>
+
+    <p class="description">
+        Gunakan tombol di bawah untuk membuat data awal
+        Kontak dan Ketentuan & Kebijakan Privasi pada
+        Firebase Realtime Database baru.
+    </p>
+
+    <div class="data-list">
+
+        <div class="data-item">
+            <div class="data-icon">
+                <i class="fas fa-headset"></i>
+            </div>
+            <div>
+                <strong>Data Kontak</strong>
+                <small>setting/contact</small>
+            </div>
+        </div>
+
+        <div class="data-item">
+            <div class="data-icon">
+                <i class="fas fa-shield-halved"></i>
+            </div>
+            <div>
+                <strong>Ketentuan & Privasi</strong>
+                <small>setting/privacy</small>
+            </div>
+        </div>
+
+    </div>
+
+    <button id="buatDummyFirebase">
+        <i class="fas fa-cloud-arrow-up"></i>
+        Buat Dummy Firebase
+    </button>
+
+    <div id="status"></div>
+
+    <div class="footer">
+        KILATCASH · FIREBASE DATABASE SETUP
+    </div>
+
+</div>
+
+<script type="module">
+
+import {
+    initializeApp
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+
+import {
+    getDatabase,
+    ref,
+    update
+} from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+/* =========================================
+   FIREBASE CONFIG BARU
+========================================= */
+
+const firebaseConfig = {
+    apiKey: "AIzaSyC6Qe1enJ55LnjOwp6iFgR8H7s-uEOtz6c",
+    authDomain: "danaplatform-90fcd.firebaseapp.com",
+    databaseURL: "https://danaplatform-90fcd-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "danaplatform-90fcd",
+    storageBucket: "danaplatform-90fcd.firebasestorage.app",
+    messagingSenderId: "213464745406",
+    appId: "1:213464745406:web:f067b0a64515a12e6765ef",
+    measurementId: "G-GW8CLF2XCK"
+};
+
+const app = initializeApp(firebaseConfig);
+const rtdb = getDatabase(app);
+
+/* =========================================
+   ELEMENT
+========================================= */
+
+const tombol = document.getElementById("buatDummyFirebase");
+const statusBox = document.getElementById("status");
+
+/* =========================================
+   DATA DUMMY KONTAK
+========================================= */
+
+const dataKontak = {
+    email: "support@kilatcash.com",
+    wa: "6281234567890",
+    jam: "Senin - Minggu, 08.00 - 22.00 WIB"
+};
+
+/* =========================================
+   DATA DUMMY KETENTUAN & PRIVASI
+========================================= */
+
+const dataPrivacy = {
+    judul: "Ketentuan & Kebijakan Privasi",
+
+    terakhirDiperbarui: new Date().toISOString(),
+
+    pendahuluan:
+        "Kilatcash berkomitmen untuk melindungi serta menjaga kerahasiaan data pribadi setiap pengguna. Kebijakan ini menjelaskan bagaimana kami mengumpulkan, menggunakan, menyimpan, dan melindungi informasi pengguna selama menggunakan layanan kami.",
+
+    pengumpulanData: {
+        identitas:
+            "Nama, nomor HP, dan informasi identitas lain yang dibutuhkan untuk verifikasi layanan.",
+
+        transaksi:
+            "Riwayat transaksi dan aktivitas pengguna digunakan untuk meningkatkan kualitas layanan.",
+
+        perangkat:
+            "Informasi perangkat dan akses sistem digunakan demi keamanan dan stabilitas layanan."
+    },
+
+    penggunaanData:
+        "Data pengguna digunakan untuk mendukung operasional, meningkatkan kualitas layanan, melakukan verifikasi, dan menjaga keamanan akun.",
+
+    keamananData:
+        "Kilatcash berupaya menjaga keamanan informasi pengguna dengan langkah perlindungan yang sesuai.",
+
+    penyimpananData:
+        "Informasi pengguna disimpan selama diperlukan untuk mendukung layanan dan memenuhi kewajiban yang berlaku.",
+
+    pembagianData:
+        "Informasi pribadi pengguna tidak boleh dibagikan kepada pihak lain tanpa dasar dan keperluan yang sah.",
+
+    persetujuan:
+        "Dengan menggunakan layanan Kilatcash, pengguna dianggap telah membaca, memahami, dan menyetujui ketentuan serta kebijakan privasi yang berlaku."
+};
+
+/* =========================================
+   BUAT DATA FIREBASE
+========================================= */
+
+tombol.addEventListener("click", async () => {
+
+    const konfirmasi = confirm(
+        "Apakah kamu yakin ingin membuat data dummy Kontak dan Ketentuan & Privasi?"
+    );
+
+    if (!konfirmasi) return;
+
+    tombol.disabled = true;
+    tombol.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Menyimpan Data...';
+
+    statusBox.className = "";
+    statusBox.style.display = "none";
+
+    try {
+
+        /*
+         * UPDATE digunakan agar data lain di dalam
+         * node setting tidak ikut terhapus.
+         */
+
+        await update(ref(rtdb, "setting"), {
+            contact: dataKontak,
+            privacy: dataPrivacy
+        });
+
+        statusBox.className = "success";
+
+        statusBox.innerHTML = `
+            <strong><i class="fas fa-circle-check"></i> Berhasil!</strong><br>
+            Data dummy sudah berhasil dibuat di Firebase.<br><br>
+
+            <i class="fas fa-check"></i> setting/contact<br>
+            <i class="fas fa-check"></i> setting/privacy
+        `;
+
+        tombol.innerHTML = '<i class="fas fa-check-circle"></i> Data Berhasil Dibuat';
+
+    } catch (error) {
+
+        console.error("Firebase Error:", error);
+
+        statusBox.className = "error";
+
+        statusBox.innerHTML = `
+            <strong><i class="fas fa-circle-exclamation"></i> Gagal Membuat Data!</strong><br>
+            ${error.message}
+        `;
+
+        tombol.disabled = false;
+        tombol.innerHTML = '<i class="fas fa-redo"></i> Coba Lagi';
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>
