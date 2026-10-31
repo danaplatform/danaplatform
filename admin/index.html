@@ -1834,7 +1834,7 @@ button.logout-btn:active {
 
   <!-- LOGO -->
 
-  <img src="logo-preview.png"Logo*"*
+  <img src="../logo8view.jpeg"Logo*"*
 
     style="
 
@@ -2020,7 +2020,7 @@ button.logout-btn:active {
 
 ">
 
-  © 2026 Rupiah Segar • All Rights Reserved <br>
+  © 2026 Danaplatform • All Rights Reserved <br>
 
   Developed by <b style="color:#fff;">Pt.digitalind</b>
 
@@ -2164,9 +2164,9 @@ button.logout-btn:active {
 
   <h2 class="panel-title">
 
-  <img src="of7e1ypd4vjyups8g2qb.png" alt="Logo" class="panel-logo">
+  <img src="../logo8view.jpeg" alt="Logo" class="panel-logo">
 
-  KILATCASH PANNEL
+  DANAPLATFORM PANNEL
 
 </h2>
 
@@ -2179,8 +2179,6 @@ button.logout-btn:active {
   <button onclick="show('peminjam', this)">Peminjam</button>
 
   <button onclick="show('va', this)">Virtual Account</button>
-
-  <button onclick="window.location.href='https*:*//rupiahsegar.sbs/upload/index.html'">Link Foto</button>
 
   <button onclick="show('vscode', this)">Atur Iklan</button>
 
@@ -2232,7 +2230,7 @@ button.logout-btn:active {
 
   <footer class="footer">
 
-  <p>© 2026 Rupiah Segar</p>
+  <p>© 2026 DanaPlatfom</p>
 
   <small>Developer: Pt.digitalind</small>
 
@@ -2543,21 +2541,23 @@ button.logout-btn:active {
 
 
  <div>
-
-  <label>Link Foto KTP</label>
-
-  <input type="text" id="ktp" placeholder="https://...">
-
+  <label>Foto KTP</label>
+  <input
+    type="file"
+    id="ktp"
+    accept="image/jpeg,image/png,image/webp"
+  >
+  <img id="previewKTP" class="preview-img" style="display:none;">
 </div>
 
-
-
 <div>
-
-  <label>Link Foto Selfie</label>
-
-  <input type="text" id="selfie" placeholder="https://...">
-
+  <label>Foto Selfie</label>
+  <input
+    type="file"
+    id="selfie"
+    accept="image/jpeg,image/png,image/webp"
+  >
+  <img id="previewSelfie" class="preview-img" style="display:none;">
 </div>
 
 
@@ -2982,57 +2982,37 @@ createMaintenanceField();
 
 
 
-
-// CLOUDINARY BARU: isi dua nilai ini dari akun Cloudinary yang baru.
-// Upload gambar belum dapat digunakan sampai kedua nilai diisi.
 const CLOUD_NAME = "xxrnxf10";
 const UPLOAD_PRESET = "danaplatform";
 
-
 async function uploadToCloudinary(file) {
+  if (!file) {
+    throw new Error("File foto belum dipilih.");
+  }
 
-  if (!CLOUD_NAME || CLOUD_NAME === "ISI_CLOUD_NAME_BARU" || !UPLOAD_PRESET || UPLOAD_PRESET === "ISI_UPLOAD_PRESET_BARU") {
-    throw new Error("Konfigurasi Cloudinary baru belum diisi. Isi CLOUD_NAME dan UPLOAD_PRESET terlebih dahulu.");
+  if (!file.type.startsWith("image/")) {
+    throw new Error("File harus berupa gambar.");
   }
 
   const form = new FormData();
-
   form.append("file", file);
-
   form.append("upload_preset", UPLOAD_PRESET);
 
-
-
   const res = await fetch(
-
     `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
-
     {
-
       method: "POST",
-
       body: form
-
     }
-
   );
-
-
 
   const data = await res.json();
 
-
-
-  if (!data.secure_url) {
-
-    throw new Error("Upload gagal ke Cloudinary");
-
+  if (!res.ok || !data.secure_url) {
+    throw new Error(data.error?.message || "Upload Cloudinary gagal.");
   }
 
-
-
   return data.secure_url;
-
 }
 
 
@@ -3573,24 +3553,41 @@ window.show = (menu, el)=>{
 
 window.kirimData = async () => {
 
-  const nama = document.getElementById("nama").value;
-
+  const nama = document.getElementById("nama").value.trim();
   const tagihan = document.getElementById("tagihan").value;
 
+  const ktpFile = document.getElementById("ktp").files[0];
+  const selfieFile = document.getElementById("selfie").files[0];
 
+  if (!nama || !tagihan) {
+    alert("Isi data wajib!");
+    return;
+  }
 
-  if (!nama || !tagihan) return alert("Isi data wajib!");
-
-
-
-    console.log("SELFIE =", document.getElementById("selfie").value);
-
-
-
-
+  if (!ktpFile || !selfieFile) {
+    alert("Foto KTP dan selfie wajib dipilih!");
+    return;
+  }
 
   try {
 
+    // UPLOAD FOTO KTP KE CLOUDINARY
+    console.log("Mengupload foto KTP...");
+
+    const ktpUrl = await uploadToCloudinary(ktpFile);
+
+    console.log("KTP berhasil:", ktpUrl);
+
+
+    // UPLOAD FOTO SELFIE KE CLOUDINARY
+    console.log("Mengupload foto selfie...");
+
+    const selfieUrl = await uploadToCloudinary(selfieFile);
+
+    console.log("Selfie berhasil:", selfieUrl);
+
+
+    // SIMPAN DATA KE FIREBASE FIRESTORE
     await addDoc(collection(db, "users"), {
 
       nama,
@@ -3601,45 +3598,45 @@ window.kirimData = async () => {
 
       va: document.getElementById("nomorVA").value,
 
-      totalPinjaman: Number(document.getElementById("totalPinjaman").value) || 0,
+      totalPinjaman:
+        Number(document.getElementById("totalPinjaman").value) || 0,
 
-      totalBayar: Number(document.getElementById("totalBayar").value) || 0,
+      totalBayar:
+        Number(document.getElementById("totalBayar").value) || 0,
 
-      orderId: document.getElementById("orderId").value || "ORD" + Math.floor(1000 + Math.random() * 9000),
+      orderId:
+        document.getElementById("orderId").value ||
+        "ORD" + Math.floor(1000 + Math.random() * 9000),
 
       tagihan: Number(tagihan),
 
-      status: document.getElementById("status").value || "Belum Bayar",
+      status:
+        document.getElementById("status").value || "Belum Bayar",
 
       jatuhTempo: document.getElementById("jatuhTempo").value,
 
-      kodeVA: document.getElementById("kodeVA").value || "8890" + Math.floor(Math.random() * 99999),
+      kodeVA:
+        document.getElementById("kodeVA").value ||
+        "8890" + Math.floor(Math.random() * 99999),
 
       waktu: new Date(),
 
+      // URL ASLI CLOUDINARY
+      ktp: ktpUrl,
 
-
-      // 🔥 LANGSUNG SIMPAN LINK
-
-      ktp: document.getElementById("ktp").value,
-
-      swafoto: document.getElementById("selfie").value
+      swafoto: selfieUrl
 
     });
 
-
-
-    alert("Data berhasil disimpan!");
+    alert("Data dan kedua foto berhasil disimpan!");
 
     location.reload();
 
-
-
   } catch (err) {
 
-    console.error(err);
+    console.error("GAGAL SIMPAN DATA:", err);
 
-    alert("Gagal menyimpan data");
+    alert("Gagal menyimpan data: " + err.message);
 
   }
 
@@ -5082,8 +5079,33 @@ console.log("saveContact =", typeof window.saveContact);
 
 
 
+function previewFile(inputId, previewId) {
+  const input = document.getElementById(inputId);
+  const preview = document.getElementById(previewId);
 
+  input.addEventListener("change", () => {
+    const file = input.files[0];
 
+    if (!file) {
+      preview.style.display = "none";
+      preview.removeAttribute("src");
+      return;
+    }
+
+    if (!["image/jpeg", "image/png", "image/webp"].includes(file.type)) {
+      alert("Format foto harus JPG, PNG, atau WEBP.");
+      input.value = "";
+      preview.style.display = "none";
+      return;
+    }
+
+    preview.src = URL.createObjectURL(file);
+    preview.style.display = "block";
+  });
+}
+
+previewFile("ktp", "previewKTP");
+previewFile("selfie", "previewSelfie");
 
 
 
