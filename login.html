@@ -192,7 +192,7 @@ html, body {
   justify-content: space-between; /* kiri di kiri, kanan di kanan */
   align-items: center;
     padding: 13px 5px;
-  background: #b10808;
+  background: #0872b1;
   position: fixed;
   border-radius: 1px 1px 14px 11px;
   color: #fff;
@@ -1083,7 +1083,7 @@ html, body {
   padding:12px;
   border:none;
   border-radius:8px;
-  background:#c40000;
+  background:#0872b1;
   color:white;
   font-weight:bold;
   cursor:pointer;
@@ -1091,7 +1091,7 @@ html, body {
 }
 
 #loginCard button:hover{
-  background:#a80000;
+  background:#99bdd2;
 }
 
 #loginMessage {
@@ -1302,11 +1302,7 @@ html, body {
 
   gap: 10px;
 
-  background: linear-gradient(
-    135deg,
-    #ff2d2d,
-    #b10808
-  );
+  background:linear-gradient(135deg, #03A9F4, #3F51B5);
 
   color: #fff;
 
@@ -1938,9 +1934,9 @@ img, .logo-admin, .icon {
 
 <header class="header">
   <div class="header-left">
-    <img id="logoHeader" class="logo" src="https://rupiahsegar.sbs/rupiahsegar-view.jpg" alt="Logo">
+    <img id="logoHeader" class="logo" src="https://res.cloudinary.com/xxrnxf10/image/upload/v1793430970/ytalpgxwynituubc0fik.jpg" alt="Logo">
     <div class="logo-area">
-      <span class="logo-text" id="titleHeader">Pinjamanku</span>
+      <span class="logo-text" id="titleHeader">DANA PLATFORM</span>
       <div class="logo-desc" id="descHeader">Cek Tagihan &amp; Pembayaran</div>
     </div>
   </div>
@@ -1948,7 +1944,7 @@ img, .logo-admin, .icon {
 
 <div id="loginCard">
   <div class="logo-top">
-    <img id="logoImg" src="https://rupiahsegar.sbs/rupiahsegar-view.jpg" alt="Logo" class="logo-img">
+    <img id="logoImg" src="https://res.cloudinary.com/xxrnxf10/image/upload/v1793430970/ytalpgxwynituubc0fik.jpg" alt="Logo" class="logo-img">
   </div>
   <h2>Login Akun</h2>
   <div class="input-box">
@@ -2113,8 +2109,8 @@ window.kirimCS = function () {
   const pesan = document.getElementById("csPesan").value.trim();
   if (!hp) { showStatus("Masukkan nomor HP terdaftar pada formulir bantuan."); return; }
   if (!pesan) { showStatus("Silakan tulis pesan bantuan."); return; }
-  const nomorCS = "6283863319230";
-  const text = `Halo CS Kilatcash, saya butuh bantuan!
+  const nomorCS = "62800000";
+  const text = `Halo CS DANA PLATFORM, saya butuh bantuan!
 
 Nomor HP Terdaftar : ${hp}
 Kategori Bantuan : ${kategori}
