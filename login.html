@@ -1,0 +1,2127 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+
+<!-- VIEWPORT -->
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<!-- SEO -->
+<meta name="description" content="Login akun Pinjamanku untuk mengakses dashboard, melihat informasi tagihan, dan memeriksa status pembayaran secara online.">
+<meta name="robots" content="noindex, follow">
+
+<!-- OPEN GRAPH (WHATSAPP / FACEBOOK) -->
+<meta property="og:title" content="Login Akun - Pinjamanku">
+<meta property="og:description" content="Masuk ke akun Pinjamanku untuk mengakses dashboard dan informasi tagihan Anda.">
+<meta property="og:image" content="https://rupiahsegar.sbs/rupiahsegar-view.jpg">
+<meta property="og:url" content="https://rupiahsegar.sbs/login.html">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pinjamanku">
+<meta property="og:locale" content="id_ID">
+
+<!-- TWITTER CARD -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Login Akun - Pinjamanku">
+<meta name="twitter:description" content="Masuk ke akun Pinjamanku untuk mengakses dashboard dan informasi tagihan Anda.">
+<meta name="twitter:image" content="https://rupiahsegar.sbs/rupiahsegar-view.jpg">
+
+<!-- FAVICON -->
+<link rel="icon" type="image/png" href="https://rupiahsegar.sbs/rupiahsegar-view.jpg">
+<link rel="shortcut icon" type="image/png" href="https://rupiahsegar.sbs/rupiahsegar-view.jpg">
+<link rel="apple-touch-icon" href="https://rupiahsegar.sbs/rupiahsegar-view.jpg">
+<link rel="icon" href="/favicon.ico">
+
+<!-- ICON -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<!-- FONT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- THEME -->
+<meta name="theme-color" content="#b10808">
+
+<!-- STRUCTURED DATA -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "name": "Login Akun - Pinjamanku",
+  "description": "Halaman login akun Pinjamanku.",
+  "url": "https://rupiahsegar.sbs/login.html",
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "Pinjamanku",
+    "url": "https://rupiahsegar.sbs/"
+  }
+}
+</script>
+
+<title>Login Akun - Pinjamanku</title>
+
+<style>
+
+
+
+
+/* ====================== CSS ====================== */
+body{
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding:0;
+  padding-bottom: 80px;
+  color: #333;
+  user-select: none;
+  -webkit-user-select: none;
+  -ms-user-select: none;
+ 
+
+  background: 
+    linear-gradient(rgba(255,255,255,0.7), rgba(255,255,255,0.7)), 
+    url("global_map.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+html, body {
+  touch-action: manipulation;
+}
+
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+
+
+/* sembunyikan isi app dulu */
+#mainApp{
+  display:none;
+}
+
+/* loader */
+#appLoader{
+  position:fixed;
+  inset:0;
+  background:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  z-index:999999;
+}
+
+.loader-box{
+  text-align:center;
+  font-family:'Segoe UI',sans-serif;
+}
+
+.spinner{
+  width:55px;
+  height:55px;
+  border:5px solid #ececec;
+  border-top:5px solid #dc2626;
+  border-radius:50%;
+  animation:spin .8s linear infinite;
+  margin:auto;
+}
+
+.loader-box p{
+  margin-top:14px;
+  color:#666;
+  font-size:14px;
+}
+
+@keyframes spin{
+  to{
+    transform:rotate(360deg);
+  }
+}
+
+
+
+
+ /* cek tagihan & pembayaran */
+.logo-desc{
+  font-size: 11px;
+
+  color: #ffd6d6;
+
+  font-weight: 500;
+
+  margin-top: 2px;
+
+  letter-spacing: 0.3px;
+
+  opacity: 0.9;
+}
+
+
+.header {
+  display: flex;
+  justify-content: space-between; /* kiri di kiri, kanan di kanan */
+  align-items: center;
+    padding: 13px 5px;
+  background: #b10808;
+  position: fixed;
+  border-radius: 1px 1px 14px 11px;
+  color: #fff;
+  font-weight: bold;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 999; 
+  
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 6px; /* tambahan biar tidak terlalu nempel kiri */
+}
+
+.header-left .logo {
+  width: 32px; /* sedikit dibesarkan biar lebih proporsional */
+  height: 32px;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.header-left .logo-text {
+  font-size: 16px;
+  color: #fff;
+  font-weight: 600;
+  line-height: 1.1;
+}
+
+/* Kanan: logo menu */
+.header-right {
+  position: relative;
+  margin-right: 6px;
+
+}
+
+.header-right .logo-menu {
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  filter: brightness(0) invert(1); /* hitam → putih */
+}
+
+.header-right .logo-menu {
+  margin-right: 10px;
+  width: 30px;
+  height: 30px;
+  cursor: pointer;
+  filter: brightness(0) invert(1);
+
+  transition: 0.2s ease; /* biar smooth */
+}
+
+/* 🔥 saat di hover */
+.header-right .logo-menu:hover {
+  transform: scale(1.1);
+  opacity: 0.85;
+  
+}
+
+/* 🔥 saat diklik (pressed effect) */
+.header-right .logo-menu:active {
+  transform: scale(0.9);
+  opacity: 0.7;
+  
+}
+
+.dropdown-menu {
+  display: none;
+  position: absolute;
+  right: 0;
+  top: 100%;
+  background: #fff;
+  color: #333;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+  z-index: 10;
+
+  display: flex;
+  flex-direction: column;
+  height: 180px;
+}
+
+/* DROPDOWN UTAMA */
+#dropdownMenu {
+  position: fixed;
+  top: 61px;
+  right: 2px;
+  width: 50vw;
+  height: 20vh;
+
+  background: #b10808;
+  color: #ffffff;
+
+  flex-direction: column;
+  padding: 20px;
+
+  z-index: 999;
+  overflow-y: auto;
+
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+
+  gap: 10px;
+
+  /* ANIMASI */
+  transform: translateX(100%);
+  opacity: 0;
+  transition: all 0.35s ease;
+
+  pointer-events: none;
+  display: flex;
+}
+
+/* SAAT DIBUKA */
+#dropdownMenu.show {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* MENU ITEM */
+#dropdownMenu .menu-item {
+  padding: 8px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 12px;
+
+  text-align: center;
+
+  transition: 0.2s;
+}
+
+/* HOVER */
+#dropdownMenu .menu-item:hover {
+  background: rgba(255,255,255,0.15);
+}
+
+/* ITEM TERAKHIR */
+#dropdownMenu .menu-item:last-child {
+  border-bottom: none;
+}
+
+/* MENU KELUAR */
+#menuKeluar {
+  display: none;
+  margin-top: auto;
+  padding: 14px;
+  text-align: center;
+  background: #f48639;
+  border-radius: 8px;
+}
+
+
+.menu-item {
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.menu-item:hover {
+  background-color: #a0a0a0;
+}
+/* Artikel + Foto */
+.article-photos {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+.article-photos img {
+  width: 30%;
+  border-radius: 8px;
+  object-fit: cover;
+}
+
+/* Modal */
+.modal-content {
+  display: none;
+  position: fixed;
+  top:0; left:0;
+  width:100%; height:100%;
+  background: rgb(0 0 0 / 84%);
+  justify-content:center;
+  align-items:center;
+  z-index: 1000;
+}
+
+.modal-inner{
+  background:
+    linear-gradient(
+      rgba(255,255,255,0.92),
+      rgba(255,255,255,0.92)
+    ),
+    url("global_map.png");
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  padding: 25px;
+
+  border-radius: 18px;
+    max-height: 80vh;     /* 🔥 batas tinggi */
+  overflow-y: auto;     /* 🔥 aktifkan scroll */
+
+  width: 500px;
+  max-width: 90%;
+
+  position: relative;
+
+  box-shadow:
+    0 10px 35px rgba(0,0,0,0.18);
+
+  border: 1px solid rgba(255,255,255,0.6);
+
+  backdrop-filter: blur(6px);
+}
+
+
+
+
+
+
+.modal-inner .close {
+  position: sticky;
+  top: 10px;
+
+  margin-left: auto;   /* dorong ke kanan */
+  display: flex;
+
+  width: 32px;
+  height: 32px;
+
+  align-items: center;
+  justify-content: center;
+
+  font-size: 20px;
+
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.2); /* transparan */
+  color: #fff;
+
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+
+  transition: 0.2s ease;
+}
+
+.modal-inner .close:hover {
+  background: rgba(0, 0, 0, 0.35);
+  transform: scale(1.1);
+}
+
+
+
+
+
+
+/* PAGE */
+.page{
+  animation:fade .2s ease;
+  padding-top:70px;
+  max-width:500px;
+  margin:0 auto;
+}
+
+@keyframes fade{from{opacity:0}to{opacity:1}}
+
+/* CARD */
+.card {
+  background: white;
+  border-radius: 12px;
+  padding: 18px;
+  margin: 50px 15px 15px 15px; /* atas 50px, kanan/bawah/kiri 15px */
+  box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+  border: 1px solid #b4b4b4;
+}
+
+.card-title{
+  text-align:center;
+  font-weight:bold;
+  font-size:18px;
+  margin-bottom:15px;
+  color:#c40000;
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  padding:12px 0;
+  border-bottom:1px solid #f0f0f0;
+}
+
+.row:last-child{
+  border-bottom:none;
+}
+
+.label{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  color:#555;
+}
+
+.value{
+  text-align:right;
+  font-weight:bold;
+}
+
+.icon{
+  width:25px;
+  height:25px;
+}
+
+.order{
+  display:flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:6px;
+  font-size:13px;
+  color:#888;
+  margin-top:5px;
+}
+
+.payment-box {
+  background: #f5f5f5;
+  border: 2px dashed #ddd;
+  border-radius: 10px;
+  padding: 15px;
+  max-width: 400px;  /* Bisa disesuaikan */
+  margin: 10px auto; /* Tengah horizontal */
+}
+
+/* Row tetap seperti semula */
+.row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Label & Icon */
+.label {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  gap: 5px;
+}
+
+/* Order di bawah total bayar */
+.value {
+  text-align: right;
+  position: relative;
+}
+
+/* Box untuk Order ID + icon copy */
+.order {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 5px;
+  justify-content: flex-end;
+}
+
+/* Icon copy */
+.copy-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+}
+
+/* KTP BOX */
+/* Container 2 foto */
+/* Container 2 foto */
+/* Container 2 foto */
+.ktp-container{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:15px;
+}
+
+/* KTP BOX */
+.ktp-box{
+  background:#f5f5f5;
+  border:2px dashed #ddd;
+  border-radius:12px;
+  padding:12px;
+  flex:1;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+
+/* Konten gambar + label */
+.ktp-content{
+  width:100%;
+
+  display:flex;
+  flex-direction:column;
+
+  align-items:center;
+
+  text-align:center;
+}
+
+/* Foto */
+.ktp-img{
+  width:100%;
+  max-width:150px;
+
+  height:110px; /* tinggi dibuat sama */
+
+  object-fit:cover; /* biar rapi */
+
+  border-radius:8px;
+
+  border:1px solid #ddd;
+
+  background:#fff;
+
+  margin-bottom:8px;
+}
+
+/* Text label */
+.ktp-content p{
+  margin:0;
+
+  font-size:14px;
+
+  font-weight:600;
+
+  color:#444;
+
+  min-height:20px; /* posisi teks tetap sejajar */
+}
+
+/* ===============================
+   VALUE APP PREMIUM
+=============================== */
+.value-app{
+  position: relative;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #ff9b9b
+  );
+
+  border: 1px solid #ffd0d0;
+
+  padding: 10px 16px;
+
+  border-radius: 14px;
+
+  font-weight: 600;
+  font-size: 13px;
+
+  color: #7a0000;
+
+  overflow: hidden;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.25s ease,
+    box-shadow 0.3s ease;
+
+  box-shadow:
+    0 6px 18px rgba(0,0,0,0.08);
+
+  animation:
+    valuePulse 2.5s infinite,
+    valueShake 6s infinite;
+}
+
+/* ===============================
+   ICON
+=============================== */
+.value-icon{
+  width: 20px;
+  height: 20px;
+
+  object-fit: contain;
+
+  border-radius: 6px;
+
+  z-index: 2;
+
+  animation: iconFloat 2s ease-in-out infinite;
+}
+
+/* ===============================
+   TEKS DI ATAS EFEK
+=============================== */
+.value-app span{
+  position: relative;
+  z-index: 2;
+}
+
+/* ===============================
+   EFEK CAHAYA BERJALAN
+=============================== */
+.value-app::before{
+  content: "";
+
+  position: absolute;
+
+  top: -50%;
+  left: -50%;
+
+  width: 200%;
+  height: 200%;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.45),
+    transparent
+  );
+
+  transform: rotate(25deg);
+
+  animation: valueShine 3.5s linear infinite;
+}
+
+/* ===============================
+   HOVER
+=============================== */
+.value-app:hover{
+  transform: translateY(-3px) scale(1.03);
+
+  box-shadow:
+    0 12px 28px rgba(255,90,90,0.28);
+}
+
+/* ===============================
+   KLIK
+=============================== */
+.value-app:active{
+  transform: scale(0.97);
+}
+
+/* ===============================
+   PULSE
+=============================== */
+@keyframes valuePulse{
+
+  0%{
+    box-shadow:
+      0 0 0 0 rgba(255,120,120,0.4);
+  }
+
+  70%{
+    box-shadow:
+      0 0 0 12px rgba(255,120,120,0);
+  }
+
+  100%{
+    box-shadow:
+      0 0 0 0 rgba(255,120,120,0);
+  }
+}
+
+/* ===============================
+   GETAR HALUS
+=============================== */
+@keyframes valueShake{
+
+  0%, 92%, 100%{
+    transform: translateX(0);
+  }
+
+  94%{
+    transform: translateX(-1px);
+  }
+
+  96%{
+    transform: translateX(1px);
+  }
+
+  98%{
+    transform: translateX(-1px);
+  }
+}
+
+/* ===============================
+   ICON NAIK TURUN
+=============================== */
+@keyframes iconFloat{
+
+  0%,100%{
+    transform: translateY(0);
+  }
+
+  50%{
+    transform: translateY(-2px);
+  }
+}
+
+/* ===============================
+   SHINE
+=============================== */
+@keyframes valueShine{
+
+  0%{
+    transform:
+      translateX(-100%)
+      rotate(25deg);
+  }
+
+  100%{
+    transform:
+      translateX(100%)
+      rotate(25deg);
+  }
+}
+
+/* PAYMENT BOX */
+.payment-box{
+  background:#edfff2;
+  border-radius:12px;
+  padding:15px;
+  margin-top:15px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+
+.box-title{
+  text-align:center;
+  font-weight:bold;
+  font-size:16px;
+  margin-bottom:15px;
+  color:#333;
+}
+
+/* BUTTON */
+.pay-btn{
+  width:100%;
+  margin-top:15px;
+  background:#c40000;
+  color:white;
+  border:none;
+  padding:14px;
+  border-radius:20px;
+  font-size:16px;
+  font-weight:bold;
+  cursor:pointer;
+  box-shadow:0 3px 10px rgba(0,0,0,0.2);
+}
+.pay-btn:hover{
+  background:#a80000;
+}
+
+/* ===============================
+   POPUP
+=============================== */
+.popup-bayar{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+
+  background: rgb(0 0 0 / 86%);
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 9999;
+
+  /* ANIMASI */
+  opacity: 0;
+  visibility: hidden;
+
+  transition:
+    opacity 0.35s ease,
+    visibility 0.35s ease;
+}
+
+/* ===============================
+   SAAT MUNCUL
+=============================== */
+.popup-bayar.show{
+  opacity: 1;
+  visibility: visible;
+}
+
+/* ===============================
+   CONTENT POPUP
+=============================== */
+.popup-content{
+    background:
+    linear-gradient(rgba(255, 255, 255, 0.92), rgb(223 191 191 / 92%)), url(global_map.png);
+
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  width: 90%;
+  max-width: 350px;
+
+  padding: 20px;
+
+  border-radius: 12px;
+
+  box-shadow:
+    0 5px 20px rgba(0,0,0,0.3);
+
+  /* ANIMASI KECIL → BESAR */
+  transform: scale(0.7);
+
+  transition:
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+
+  position: relative;
+}
+
+/* ===============================
+   ANIMASI AKTIF
+=============================== */
+.popup-bayar.show .popup-content{
+  transform: scale(1);
+}
+
+/* ===============================
+   FORM
+=============================== */
+.form-group{
+  margin-bottom: 18px;
+}
+
+.form-group label{
+  font-weight: 600;
+  font-size: 14px;
+
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #444;
+}
+
+.form-group input{
+  width: 100%;
+
+  padding: 12px 14px;
+
+  border: 1px solid #ddd;
+
+  border-radius: 8px;
+
+  background: #fafafa;
+
+  font-size: 16px;
+
+  transition: all 0.2s ease;
+
+  box-sizing: border-box;
+
+  font-weight: bold;
+}
+
+/* ===============================
+   INPUT FOCUS
+=============================== */
+.form-group input:focus{
+  outline: none;
+
+  border-color: #ffffff;
+
+  background: #fff;
+
+  box-shadow:
+    0 0 0 2px rgba(196,0,0,0.08);
+}
+
+/* ===============================
+   PLACEHOLDER
+=============================== */
+.form-group input::placeholder{
+  color: #999;
+  font-size: 14px;
+}
+
+/* ===============================
+   VA IMAGE
+=============================== */
+.va-image{
+  border: 1px dashed #ccc;
+
+  padding: 10px;
+
+  text-align: center;
+
+  border-radius: 8px;
+
+  background: #fafafa;
+}
+
+.va-image img{
+  width: 100%;
+  max-width: 250px;
+}
+
+/* ===============================
+   CLOSE BUTTON
+=============================== */
+.close-btn{
+  width: 100%;
+
+  padding: 12px;
+
+  background: #c40000;
+
+  color: white;
+
+  border: none;
+
+  border-radius: 20px;
+
+  cursor: pointer;
+
+  transition: 0.2s ease;
+}
+
+/* HOVER */
+.close-btn:hover{
+  transform: scale(1.03);
+  background: #a80000;
+}
+
+/* KLIK */
+.close-btn:active{
+  transform: scale(0.98);
+}
+
+/* LOGIN CARD */
+#loginCard{
+  max-width:350px;
+  margin:120px auto;
+  padding:20px;
+  text-align:center;
+  position: relative;
+  overflow: hidden;
+  border-radius: 10px;
+
+  /* background gambar */
+  background: url('ajz.png') no-repeat center center;
+  background-size: cover;
+
+  /* lengkungan bawah */
+  clip-path: ellipse(140% 100% at 50% 0%);
+
+  /* shadow */
+  box-shadow:0 8px 25px rgb(18 18 18 / 99%);
+}
+
+
+#loginCard h2{
+  margin-bottom:15px;
+  color:#ffffff;
+}
+
+#loginCard input{
+  width:50%;
+  padding:12px;
+  margin-bottom:1px;
+  border-radius:8px;
+  border:1px solid #ddd;
+  font-size:16px;
+}
+
+#loginCard button{
+  width:100%;
+  padding:12px;
+  border:none;
+  border-radius:8px;
+  background:#c40000;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+  font-size:16px;
+}
+
+#loginCard button:hover{
+  background:#a80000;
+}
+
+#loginMessage {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+    padding: 8px 10px;
+    border-radius: 8px;
+    backdrop-filter: blur(6px);
+    display: inline-block;
+}
+
+#loginMessage img {
+  width: 18px;
+  height: 18px;
+}
+
+/* BOTTOM NAV */
+.bottom-nav{
+  position:fixed;
+  border-radius: 10px;
+  bottom:0;
+  left:0;
+  width:100%;
+  background:white;
+  display:flex;
+  justify-content:space-around;
+  padding:10px 0;
+  border-top:1px solid #ddd;
+  box-shadow:0 -2px 10px rgba(0,0,0,0.08);
+  z-index:999;
+}
+
+.nav-item{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  font-size:12px;
+  color:#666;
+  cursor:pointer;
+  gap:4px;
+  font-weight: bold;
+}
+
+.nav-item img{
+  width:40px;
+  height:40px;
+}
+
+.nav-item:hover{
+  color:#c40000;
+}
+
+
+#copyVA {
+  display: block;
+  margin: 10px auto 0; /* margin top 10px, auto kiri-kanan = tengah */
+  padding: 5px 10px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: #f0f0f0;
+}
+
+.va-box {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 15px;
+  background: #f9f9f9;
+  width: 250px; /* sesuaikan lebar */
+  text-align: center; /* tombol dan kode VA di tengah */
+  margin: 10px auto; /* center box di halaman */
+}
+
+.va-box .va-image {
+  font-size: 18px;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.va-box #copyVA {
+  display: block;
+  margin: 10px auto 0;
+  padding: 5px 12px;
+  cursor: pointer;
+  font-size: 14px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: #e0e0e0;
+}
+
+
+
+
+
+
+
+
+.cs-btn {
+  display: flex;
+  justify-content: center;   /* center horizontal */
+  align-items: center;       /* center vertical */
+  gap: 8px;
+
+  padding: 10px 16px;
+  background: linear-gradient(135deg, #ff3b3b, #b10000);
+  border: none;
+  border-radius: 12px;
+
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+
+  text-align: center;
+  transition: 0.2s ease;
+}
+
+.cs-btn:hover {
+  transform: scale(1.03);
+}
+
+.cs-btn:active {
+  transform: scale(0.98);
+}
+
+.cs-icon {
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.cs-box {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* posisi tengah */
+  gap: 8px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  margin-top: 15px; /* beri jarak dari tombol login */
+}
+
+
+
+#loginCS {
+  background-color: #999; /* abu-abu */
+  color: #fff;             /* teks putih supaya kontras */
+  border: none;            /* hilangkan border default */
+  padding: 8px 15px;       /* beri ruang di dalam tombol */
+  border-radius: 6px;      /* sudut agak membulat */
+  cursor: pointer;         /* kursor pointer saat hover */
+}
+
+#loginCS:hover {
+  background-color: #888;  /* efek hover sedikit lebih gelap */
+}
+
+.cs-box {
+  display: flex;
+  justify-content: center; /* tengah horizontal */
+  align-items: center;     /* tengah vertikal */
+  gap: 10px;               /* jarak icon & tombol */
+  margin-top: -100px;       /* naik mendekati input login */
+}
+
+
+/* ===============================
+   BUTTON CS PREMIUM
+=============================== */
+#csbox{
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+  justify-content: center;
+
+  gap: 10px;
+
+  background: linear-gradient(
+    135deg,
+    #ff2d2d,
+    #b10808
+  );
+
+  color: #fff;
+
+  border: none;
+
+  padding: 10px 18px;
+
+  border-radius: 12px;
+
+  cursor: pointer;
+
+  font-weight: 600;
+
+  font-size: 14px;
+
+  letter-spacing: 0.5px;
+
+  overflow: hidden;
+
+  text-align: center;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.3s ease,
+    background 0.3s ease;
+
+  box-shadow:
+    0 6px 18px rgba(177,8,8,0.35);
+
+  animation:
+    csPulse 2s infinite,
+    csShake 5s infinite;
+}
+
+/* ===============================
+   ICON
+=============================== */
+.cs-icon{
+  width: 22px;
+  height: 22px;
+
+  object-fit: contain;
+
+  display: block;
+
+  position: relative;
+
+  z-index: 2;
+
+  animation:
+    iconFloat 2s ease-in-out infinite;
+}
+
+/* ===============================
+   TEKS DI ATAS EFEK
+=============================== */
+#csbox span,
+#csbox{
+  z-index: 2;
+}
+
+/* ===============================
+   EFEK CAHAYA BERJALAN
+=============================== */
+#csbox::before{
+  content: "";
+
+  position: absolute;
+
+  top: -50%;
+  left: -50%;
+
+  width: 200%;
+  height: 200%;
+
+  background: linear-gradient(
+    120deg,
+    transparent,
+    rgba(255,255,255,0.35),
+    transparent
+  );
+
+  transform: rotate(25deg);
+
+  animation: shine 3s linear infinite;
+}
+
+/* ===============================
+   HOVER
+=============================== */
+#csbox:hover{
+  transform: translateY(-2px) scale(1.03);
+
+  box-shadow:
+    0 10px 24px rgba(177,8,8,0.45);
+}
+
+/* ===============================
+   KLIK
+=============================== */
+#csbox:active{
+  transform: scale(0.97);
+}
+
+/* ===============================
+   PULSE
+=============================== */
+@keyframes csPulse{
+
+  0%{
+    box-shadow:
+      0 0 0 0 rgba(255,45,45,0.5);
+  }
+
+  70%{
+    box-shadow:
+      0 0 0 12px rgba(255,45,45,0);
+  }
+
+  100%{
+    box-shadow:
+      0 0 0 0 rgba(255,45,45,0);
+  }
+}
+
+/* ===============================
+   GETAR HALUS
+=============================== */
+@keyframes csShake{
+
+  0%, 90%, 100%{
+    transform: translateX(0);
+  }
+
+  92%{
+    transform: translateX(-1px);
+  }
+
+  94%{
+    transform: translateX(1px);
+  }
+
+  96%{
+    transform: translateX(-1px);
+  }
+
+  98%{
+    transform: translateX(1px);
+  }
+}
+
+/* ===============================
+   ICON FLOAT
+=============================== */
+@keyframes iconFloat{
+
+  0%,100%{
+    transform: translateY(0);
+  }
+
+  50%{
+    transform: translateY(-2px);
+  }
+}
+
+/* ===============================
+   SHINE
+=============================== */
+@keyframes shine{
+
+  0%{
+    transform:
+      translateX(-100%)
+      rotate(25deg);
+  }
+
+  100%{
+    transform:
+      translateX(100%)
+      rotate(25deg);
+  }
+}
+
+
+
+
+/* Logo atas */
+.logo-top {
+  margin-bottom: 15px;
+  
+}
+.logo-top .logo-img {
+  width: 100px;
+  height: auto;
+  border-radius: 10px;
+}
+
+
+/* INFO DI BAWAH LOGIN */
+.login-info{
+  display:flex;
+  align-items:center; /* bikin teks sejajar dengan icon */
+  gap:8px; /* jarak antara icon dan teks */
+  justify-content:center; /* opsional, supaya di tengah */
+}
+
+.info-logo{
+  width:20px;
+  height:20px;
+}
+
+
+
+.input-box {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 8px 12px;
+  margin-bottom: 15px;
+}
+
+.input-logo {
+  width: 40px;       /* ukuran logo */
+  height: 40px;
+  margin-right: 10px; /* jarak antara logo dan input */
+}
+
+.input-box input {
+  border: none;
+  outline: none;
+  flex: 1;           /* input memenuhi sisa box */
+  font-size: 14px;
+}
+
+
+
+
+/* Scroll lebih halus */
+.modal-inner::-webkit-scrollbar {
+  width: 6px;
+}
+.modal-inner::-webkit-scrollbar-thumb {
+  background: #ccc;
+  border-radius: 10px;
+}
+
+
+
+
+/* Tambahkan CSS untuk toast */
+.toast {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%) translateY(100%);
+  background-color: #56a958; /* hijau sukses */
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: bold;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: all 0.4s ease;
+  z-index: 9999;
+}
+
+.toast.show {
+  transform: translateX(-50%) translateY(0);
+  opacity: 1;
+}
+
+
+.toast-wrap{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.toast-logo{
+  width:24px;
+  height:24px;
+  object-fit:contain;
+  border-radius:20%;
+}
+
+
+
+#sponsorBox {
+  position: fixed;
+  bottom: 90px;
+  right: 12px;
+  width: 140px;
+  height: 180px;
+  
+  border-radius: 16px;
+  overflow: hidden;
+  
+  background: linear-gradient(145deg, #ffffff, #f1f1f1);
+  box-shadow: 
+    0 10px 25px rgba(0,0,0,0.15),
+    inset 0 1px 0 rgba(255,255,255,0.6);
+
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  transition: all 0.3s ease;
+  z-index: 999;
+   animation: slideUp 0.5s ease;
+}
+
+
+#sponsorFrame {
+  width: 100%;
+  height: 100%;
+  border: none;
+  border-radius: 16px;
+}
+#sponsorBox:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 
+    0 15px 35px rgba(0,0,0,0.25);
+}
+
+
+.closeSponsor {
+  position: absolute;
+  top: 6px;
+  right: 8px;
+  font-size: 12px;
+  background: rgba(0,0,0,0.5);
+  color: white;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.closeSponsor:hover {
+  background: red;
+}
+
+
+.footer{
+  text-align:center;
+  font-size:13px;
+  color:#777;
+  margin-top:40px;
+  padding:15px 10px;
+}
+
+
+
+
+
+#copyright{
+  text-align:center;
+  font-size:13px;
+  color:#777;
+  margin-top:40px;
+  padding:15px;
+}
+
+
+#copyright span{
+  color:#999191;
+  font-weight:bold;
+}
+
+
+
+
+.popup-overlay{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.5);
+  display:none;
+  justify-content:center;
+  align-items:center;
+  z-index:9999;
+}
+
+.popup-box{
+  background:white;
+  width:90%;
+  max-width:350px;
+  padding:20px;
+  border-radius:12px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+}
+
+.popup-box h3{
+  text-align:center;
+  margin-bottom:15px;
+  color:#c40000;
+}
+
+.popup-box select,
+.popup-box textarea,
+.popup-box input{
+  width:100%;
+  padding:5px;
+  border:1px solid #ddd;
+  border-radius:7px;
+  margin-top:5px;
+  font-size:14px;
+}
+
+.popup-box textarea{
+  resize:none;
+  height:70px;
+}
+
+.popup-buttons{
+  display:flex;
+  gap:10px;
+  margin-top:15px;
+}
+
+.popup-buttons button{
+  flex:1;
+  padding:10px;
+  border:none;
+  border-radius:7px;
+  background:#c40000;
+  color:white;
+  font-weight:bold;
+  cursor:pointer;
+}
+
+.btn-batal{
+  background:#999;
+}
+
+/* ===============================
+   LOGO CS PREMIUM
+=============================== */
+/* ===============================
+   LOGO CS PREMIUM
+=============================== */
+.cs-logo{
+  width: 70px;
+
+  display: block;
+
+  margin: 0 auto 12px auto;
+
+  border-radius: 50%;
+
+  padding: 6px;
+
+  background: linear-gradient(
+    135deg,
+    #ffffff,
+    #ffe0e0
+  );
+
+  box-shadow:
+    0 6px 20px rgba(177,8,8,0.25),
+    0 0 18px rgba(255,70,70,0.35);
+
+  animation:
+    csLogoPulse 2s infinite;
+
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+/* ===============================
+   HOVER
+=============================== */
+.cs-logo:hover{
+  transform: scale(1.08);
+
+  box-shadow:
+    0 10px 28px rgba(177,8,8,0.35),
+    0 0 28px rgba(255,70,70,0.55);
+}
+
+/* ===============================
+   PULSE GLOW
+=============================== */
+@keyframes csLogoPulse{
+
+  0%{
+    box-shadow:
+      0 0 0 0 rgba(255,45,45,0.45),
+      0 6px 20px rgba(177,8,8,0.25);
+  }
+
+  70%{
+    box-shadow:
+      0 0 0 16px rgba(255,45,45,0),
+      0 6px 20px rgba(177,8,8,0.25);
+  }
+
+  100%{
+    box-shadow:
+      0 0 0 0 rgba(255,45,45,0),
+      0 6px 20px rgba(177,8,8,0.25);
+  }
+}
+
+
+
+
+
+
+
+
+
+.status-belum{
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+
+  background:#f1f3f5;
+  border:1px solid #e0e0e0;
+  padding:6px 12px;
+  border-radius:8px;
+
+  font-size:13px;
+  font-weight:500;
+  color:#555;
+
+  box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+/* animasi titik loading */
+.status-belum::after{
+  content:"";
+  width:6px;
+  height:6px;
+  border-radius:50%;
+  background:#eb0003;
+  animation:loadingDot 1.2s infinite;
+}
+
+@keyframes loadingDot{
+  0%{opacity:0.2; transform:scale(0.8);}
+  50%{opacity:1; transform:scale(1.3);}
+  100%{opacity:0.2; transform:scale(0.8);}
+}
+
+
+
+
+
+
+
+.image-viewer{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgb(20 13 9 / 96%);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+}
+
+.image-viewer img{
+  max-width: 90%;
+  max-height: 90%;
+  border-radius: 10px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+.close-viewer{
+  position: absolute;
+  top: 20px;
+  right: 25px;
+  font-size: 30px;
+  color: #fff;
+  cursor: pointer;
+}
+
+
+
+.image-viewer img{
+  animation: zoomIn 0.25s ease;
+}
+
+@keyframes zoomIn{
+  from{ transform: scale(0.8); opacity: 0; }
+  to{ transform: scale(1); opacity: 1; }
+}
+
+
+
+img, .logo-admin, .icon {
+  -webkit-tap-highlight-color: transparent;
+  outline: none;
+}
+
+
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
+
+
+
+
+/* Khusus halaman login: mempertahankan tampilan login asli */
+#appLoader { display:none !important; }
+#loginCard { margin-top:120px; }
+.cs-box { margin: -70px auto 25px; position:relative; z-index:2; }
+#loginBtn:disabled { opacity:.7; cursor:wait; }
+#loginText { white-space:normal; }
+@media (max-width:480px) {
+  #loginCard { margin:110px 15px 90px; max-width:none; }
+  .cs-box { margin-top:-70px; }
+}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-left">
+    <img id="logoHeader" class="logo" src="https://rupiahsegar.sbs/rupiahsegar-view.jpg" alt="Logo">
+    <div class="logo-area">
+      <span class="logo-text" id="titleHeader">Pinjamanku</span>
+      <div class="logo-desc" id="descHeader">Cek Tagihan &amp; Pembayaran</div>
+    </div>
+  </div>
+</header>
+
+<div id="loginCard">
+  <div class="logo-top">
+    <img id="logoImg" src="https://rupiahsegar.sbs/rupiahsegar-view.jpg" alt="Logo" class="logo-img">
+  </div>
+  <h2>Login Akun</h2>
+  <div class="input-box">
+    <img src="bdn.png" class="input-logo" alt="Logo">
+    <input type="tel" id="noWa" placeholder="Masukkan Nomor HP" inputmode="tel" autocomplete="tel" aria-label="Nomor HP terdaftar">
+  </div>
+  <button id="loginBtn" type="button">Login</button>
+  <p id="loginMessage">
+    <img src="24-hours-support.png" alt="status" style="width:18px;vertical-align:middle;filter:brightness(0) invert(1);">
+    <span id="loginText" role="status" aria-live="polite"></span>
+  </p>
+  <div class="login-info">
+    <img src="manner_rating_up_unselect.png" class="info-logo" alt="Info">
+    <span style="color:white;">Silahkan masuk Nomor HP sesuai yang terdaftar di sistem</span>
+  </div>
+</div>
+
+<div class="cs-box">
+  <button id="csbox" type="button">
+    <img src="ajb.png" class="cs-icon" alt="CS Icon"> Bantuan CS
+  </button>
+</div>
+
+<div id="csPopup" class="popup-overlay">
+  <div class="popup-box">
+    <img src="ajb.png" class="cs-logo" alt="Logo">
+    <h3>Customer Service</h3>
+    <div class="form-group">
+      <label for="csHp">Nomor HP Terdaftar</label>
+      <input type="text" id="csHp" placeholder="Masukkan nomor HP">
+    </div>
+    <div class="form-group">
+      <label for="csKategori">Kategori Bantuan</label>
+      <select id="csKategori">
+        <option>Cara Pembayaran</option><option>Cara Login</option>
+        <option>Cara Periksa Pembayaran</option><option>Cara Ganti Nomor HP</option>
+        <option>Cara Salin Kode VA</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="csPesan">Pesan Lain</label>
+      <textarea id="csPesan" placeholder="Tuliskan pesan anda"></textarea>
+    </div>
+    <div class="popup-buttons">
+      <button type="button" onclick="kirimCS()">Kirim</button>
+      <button type="button" class="btn-batal" onclick="tutupCS()">Batal</button>
+    </div>
+  </div>
+</div>
+<div id="toast" class="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getFirestore, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+// Konfigurasi Firebase dipertahankan dari file lama.
+const firebaseConfig = {
+  apiKey: "AIzaSyDa5S7LeRuudC2ZWnOsW51asyOQ2WsXZGY",
+  authDomain: "datapinjam-c6008.firebaseapp.com",
+  projectId: "datapinjam-c6008",
+  storageBucket: "datapinjam-c6008.firebasestorage.app",
+  messagingSenderId: "937287862152",
+  appId: "1:937287862152:web:7ea55a1e90be67c3591c3d"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+const realtimeDB = getDatabase(app);
+const loginBtn = document.getElementById("loginBtn");
+const noWaInput = document.getElementById("noWa");
+const msgEl = document.getElementById("loginText");
+let loginBusy = false;
+let statusTimer;
+
+function showStatus(message) {
+  msgEl.textContent = message;
+  clearTimeout(statusTimer);
+  statusTimer = setTimeout(() => { msgEl.textContent = ""; }, 4000);
+}
+
+// Pengaturan maintenance dari Realtime Database lama.
+onValue(ref(realtimeDB, "setting/maintenance"), (snap) => {
+  if (snap.val() === true && !location.pathname.includes("maintenance.html")) {
+    location.href = "maintenance.html";
+  }
+}, (error) => console.error("Gagal membaca pengaturan maintenance:", error));
+
+// Logo dan nama aplikasi dari setting/header.
+onValue(ref(realtimeDB, "setting/header"), (snap) => {
+  const data = snap.val();
+  if (!data) return;
+  if (data.logo) {
+    document.getElementById("logoImg").src = data.logo;
+    document.getElementById("logoHeader").src = data.logo;
+  }
+  document.getElementById("titleHeader").textContent = data.title || "Pinjamanku";
+  document.getElementById("descHeader").textContent = data.desc || "Cek Tagihan & Pembayaran";
+}, (error) => console.error("Gagal membaca pengaturan header:", error));
+
+async function loginUser() {
+  if (loginBusy) return;
+  const noWa = noWaInput.value.trim();
+  if (!noWa) {
+    showStatus("Mohon masukkan nomor HP!");
+    noWaInput.focus();
+    return;
+  }
+
+  loginBusy = true;
+  loginBtn.disabled = true;
+  loginBtn.textContent = "Memeriksa...";
+  const loader = document.createElement("div");
+  loader.id = "loadingPopup";
+  loader.innerHTML = `<div style="position:fixed;inset:0;background:rgba(0,0,0,.65);display:flex;justify-content:center;align-items:center;z-index:99999"><div style="width:55px;height:55px;border:5px solid #fff;border-top-color:transparent;border-radius:50%;animation:spin .8s linear infinite"></div></div>`;
+  document.body.appendChild(loader);
+
+  try {
+    const q = query(collection(db, "users"), where("noWa", "==", noWa));
+    const snap = await getDocs(q);
+    if (snap.empty) {
+      showStatus("Nomor HP tidak terdaftar!");
+      return;
+    }
+
+    const userData = snap.docs[0].data();
+    // Format penyimpanan login dipertahankan agar kompatibel dengan halaman lama.
+    localStorage.setItem("isLogin", "true");
+    localStorage.setItem("userData", JSON.stringify(userData));
+    showStatus("Login berhasil. Membuka halaman Saya...");
+    await new Promise(resolve => setTimeout(resolve, 450));
+    // Tujuan halaman sesuai permintaan: saya.html
+    window.location.href = "saya.html";
+  } catch (error) {
+    console.error("Login gagal:", error);
+    showStatus("Terjadi kesalahan saat menghubungkan ke server. Coba lagi.");
+  } finally {
+    document.getElementById("loadingPopup")?.remove();
+    loginBusy = false;
+    loginBtn.disabled = false;
+    loginBtn.textContent = "Login";
+  }
+}
+
+loginBtn.addEventListener("click", loginUser);
+noWaInput.addEventListener("keydown", (event) => {
+  if (event.key === "Enter") loginUser();
+});
+
+// Popup bantuan pelanggan dari desain lama.
+document.getElementById("csbox").addEventListener("click", () => {
+  document.getElementById("csPopup").style.display = "flex";
+});
+window.tutupCS = function () {
+  document.getElementById("csPopup").style.display = "none";
+};
+window.kirimCS = function () {
+  const hp = document.getElementById("csHp").value.trim();
+  const kategori = document.getElementById("csKategori").value;
+  const pesan = document.getElementById("csPesan").value.trim();
+  if (!hp) { showStatus("Masukkan nomor HP terdaftar pada formulir bantuan."); return; }
+  if (!pesan) { showStatus("Silakan tulis pesan bantuan."); return; }
+  const nomorCS = "6283863319230";
+  const text = `Halo CS Kilatcash, saya butuh bantuan!
+
+Nomor HP Terdaftar : ${hp}
+Kategori Bantuan : ${kategori}
+
+Pesan :
+${pesan}`;
+  window.open("https://wa.me/" + nomorCS + "?text=" + encodeURIComponent(text), "_blank", "noopener,noreferrer");
+  window.tutupCS();
+};
+</script>
+</body>
+</html>
