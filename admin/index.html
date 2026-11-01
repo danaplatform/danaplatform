@@ -4003,6 +4003,7 @@ if (document.getElementById("vaFormList")) {
 
   // -----------------------
 
+
 window.kirimData = async () => {
 
   const nama = document.getElementById("nama").value.trim();
@@ -4020,10 +4021,7 @@ window.kirimData = async () => {
     return;
   }
 
-  if (!ktpFile || !selfieFile) {
-    alert("Foto KTP dan selfie wajib dipilih!");
-    return;
-  }
+  // Foto KTP dan selfie TIDAK WAJIB
 
   // Validasi seluruh form VA
   if (!virtualAccounts.length) {
@@ -4057,13 +4055,27 @@ window.kirimData = async () => {
 
   try {
 
-    console.log("Mengupload foto KTP...");
+    // Default URL foto kosong
+    let ktpUrl = "";
+    let selfieUrl = "";
 
-    const ktpUrl = await uploadToCloudinary(ktpFile);
+    // Upload foto KTP hanya jika dipilih
+    if (ktpFile) {
 
-    console.log("Mengupload foto selfie...");
+      console.log("Mengupload foto KTP...");
 
-    const selfieUrl = await uploadToCloudinary(selfieFile);
+      ktpUrl = await uploadToCloudinary(ktpFile);
+
+    }
+
+    // Upload foto selfie hanya jika dipilih
+    if (selfieFile) {
+
+      console.log("Mengupload foto selfie...");
+
+      selfieUrl = await uploadToCloudinary(selfieFile);
+
+    }
 
     await addDoc(collection(db, "users"), {
 
@@ -4100,6 +4112,7 @@ window.kirimData = async () => {
 
       waktu: new Date(),
 
+      // Foto kosong jika tidak diupload
       ktp: ktpUrl,
 
       swafoto: selfieUrl
@@ -4119,6 +4132,7 @@ window.kirimData = async () => {
   }
 
 };
+
 
 
 
