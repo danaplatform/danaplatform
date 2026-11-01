@@ -32,6 +32,12 @@
 <link rel="shortcut icon" type="image/jpeg" href="./logo8view.jpeg?v=2">
 <link rel="apple-touch-icon" href="./logo8view.jpeg?v=2">
 
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+
 <!-- THEME -->
 <meta name="theme-color" content="#008DFF">
 <!-- STRUCTURED DATA -->
@@ -77,7 +83,10 @@ body{
 
 
 
-
+.info-nasabah-card,
+.info-nasabah-card * {
+  font-family: 'Poppins', sans-serif;
+}
 
 
 
@@ -1942,6 +1951,289 @@ body.page-saya #sayaPage { display: block !important; }
 body.page-saya .bottom-nav .nav-item:nth-child(3) { color: #0872b1; }
 body.page-saya .bottom-nav .nav-item:nth-child(3) img { transform: translateY(-2px); }
 
+
+
+
+
+
+
+/* BANK NASABAH - PREMIUM BANKING STYLE */
+
+#bankNasabah {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0;
+  width: auto;
+  max-width: 75%;
+}
+
+.bank-item-saya {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 11px;
+
+  padding: 9px 0;
+  min-height: 46px;
+
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid #edf0f5;
+  border-radius: 0;
+  box-shadow: none;
+
+  color: #202b3c;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: -0.2px;
+}
+
+.bank-item-saya:last-child {
+  border-bottom: none;
+}
+
+.bank-item-saya img {
+  display: block;
+  width: 38px;
+  height: 30px;
+  border-radius: 10px;
+
+  object-fit: contain;
+  object-position: center;
+
+  padding: 2px;
+  flex-shrink: 0;
+
+  background: transparent;
+  border: none;
+
+}
+
+.bank-item-saya span {
+  white-space: nowrap;
+  line-height: 1.4;
+  color: #263449;
+  font-weight: 600;
+}
+
+@media (max-width: 480px) {
+  #bankNasabah {
+    max-width: 78%;
+  }
+
+  .bank-item-saya {
+    gap: 9px;
+    min-height: 43px;
+    padding: 7px 0;
+    font-size: 12px;
+  }
+
+  .bank-item-saya img {
+    width: 35px;
+    height: 28px;
+  }
+}
+
+
+/* =================================
+   INFORMASI NASABAH PROFESIONAL
+================================= */
+
+.info-nasabah-card {
+  width: 100%;
+  box-sizing: border-box;
+  background: #ffffff;
+  border: 1px solid #edf0f5;
+  border-radius: 16px;
+  padding: 5px 15px;
+  box-shadow: 0 3px 12px rgba(25, 42, 70, 0.045);
+}
+
+.info-nasabah-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 0;
+  min-height: 62px;
+  box-sizing: border-box;
+}
+
+.info-nasabah-left {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  min-width: 0;
+  flex: 1;
+}
+
+.info-nasabah-icon {
+  width: 43px;
+  height: 43px;
+  min-width: 43px;
+  border-radius: 12px;
+  background: #f1f4ff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.info-nasabah-icon img {
+  width: 24px;
+  height: 24px;
+  object-fit: contain;
+}
+
+.info-nasabah-text {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.info-nasabah-title {
+  font-size: 13px;
+  font-weight: 600;
+  color: #303747;
+}
+
+.info-nasabah-subtitle {
+  font-size: 11px;
+  color: #9aa2b1;
+  font-weight: 400;
+}
+
+/* NILAI INFORMASI */
+.info-nasabah-value {
+  font-size: 12px;
+  font-weight: 600;
+  color: #525e70;
+  text-align: right;
+  max-width: 55%;
+  min-width: 0;
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+/* PEMISAH */
+.info-nasabah-divider {
+  height: 1px;
+  background: #f0f2f6;
+  margin-left: 54px;
+}
+
+/* KHUSUS BANK BANYAK */
+#bankNasabah {
+  display: block;
+  max-width: 55%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  line-height: 1.9;
+}
+
+/* MOBILE */
+@media (max-width: 480px) {
+  .info-nasabah-card {
+    border-radius: 14px;
+    padding: 4px 12px;
+  }
+
+  .info-nasabah-row {
+    padding: 14px 0;
+    gap: 8px;
+  }
+
+  .info-nasabah-icon {
+    width: 39px;
+    height: 39px;
+    min-width: 39px;
+  }
+
+  .info-nasabah-value {
+    font-size: 11px;
+    max-width: 55%;
+  }
+
+  #bankNasabah {
+    max-width: 55%;
+  }
+}
+
+
+/* POSISI BANK PEMBAYARAN TETAP DI ATAS */
+.info-nasabah-row:has(#bankNasabah) {
+  align-items: flex-start;
+}
+
+.info-nasabah-row:has(#bankNasabah) .info-nasabah-left {
+  align-items: flex-start;
+}
+
+.info-nasabah-row:has(#bankNasabah) .info-nasabah-text {
+  padding-top: 2px;
+}
+
+#bankNasabah {
+  align-self: flex-start;
+  margin-top: 2px;
+}
+
+/* =================================
+   DAFTAR BANK NASABAH
+================================= */
+
+.bank-list-saya,
+.bank-list-tambahan {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bank-list-tambahan {
+  margin-top: 10px;
+}
+
+.bank-item-saya {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.bank-item-saya img {
+  width: 27px;
+  height: 27px;
+  object-fit: contain;
+  flex-shrink: 0;
+}
+
+.bank-item-saya span {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  color: #525e70;
+}
+
+.bank-lihat-lainnya {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 11px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  color: #0c85ff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.bank-lihat-lainnya:active {
+  opacity: 0.65;
+}
+
 </style>
 </head>
 <body class="page-saya">
@@ -2200,20 +2492,43 @@ style="width:18px; vertical-align:middle; filter: brightness(0) invert(1);">
     </span>
   </div>
 </div>
-      <div class="row">
-        <span class="label"><img src="bdn.png" class="icon"> Nama</span>
-        <span class="value" id="namaNasabah" style="color:#7c7c7c;">-</span>
+<div class="info-nasabah-card">
+
+  <!-- NAMA NASABAH -->
+  <div class="info-nasabah-row">
+    <div class="info-nasabah-left">
+      <div class="info-nasabah-icon">
+        <img src="bdn.png" alt="Nama">
       </div>
-      <div class="row">
-        <span class="label"><img src="bac.png" class="icon"> Nama Bank</span>
-        <span class="value" id="bankNasabah">-</span>
-      </div>
-      <div class="row">
-        <span class="label"><img src="aaq.png" class="icon"> Virtual Account</span>
-        <span class="value" id="vaNasabah">-</span>
+
+      <div class="info-nasabah-text">
+        <span class="info-nasabah-title">Nama Nasabah</span>
+        <span class="info-nasabah-subtitle">Nama pemilik akun</span>
       </div>
     </div>
+
+    <span class="info-nasabah-value" id="namaNasabah">-</span>
   </div>
+
+  <div class="info-nasabah-divider"></div>
+
+  <!-- BANK PEMBAYARAN -->
+  <div class="info-nasabah-row">
+    <div class="info-nasabah-left">
+      <div class="info-nasabah-icon">
+        <img src="bac.png" alt="Bank">
+      </div>
+
+      <div class="info-nasabah-text">
+        <span class="info-nasabah-title">Bank Pembayaran</span>
+        <span class="info-nasabah-subtitle">Rekening pembayaran terdaftar</span>
+      </div>
+    </div>
+
+    <span class="info-nasabah-value" id="bankNasabah">-</span>
+  </div>
+
+</div>
 
   
 
@@ -2241,23 +2556,18 @@ style="width:18px; vertical-align:middle; filter: brightness(0) invert(1);">
       width:42px;
       height:42px;
       min-width:42px;
-
       border-radius:12px;
-
       background:#ffffff;
-
       display:flex;
       align-items:center;
       justify-content:center;
-
       box-shadow:0 4px 10px rgba(0,0,0,0.08);
-
       border:1px solid #e5e7eb;
     ">
 
-      <img 
-        src="bdn.png" 
-        alt="Security"
+      <img
+        src="bdn.png"
+        alt="Informasi Pembayaran"
         style="
           width:24px;
           height:24px;
@@ -2276,7 +2586,7 @@ style="width:18px; vertical-align:middle; filter: brightness(0) invert(1);">
         color:#111827;
         margin-bottom:8px;
       ">
-        Keamanan & Perlindungan Data
+        Panduan Pembayaran Tagihan
       </div>
 
       <p style="
@@ -2286,8 +2596,23 @@ style="width:18px; vertical-align:middle; filter: brightness(0) invert(1);">
         line-height:1.8;
         text-align:left;
       ">
-        Seluruh data pengguna diproses secara aman dan hanya digunakan
-        untuk kebutuhan verifikasi layanan sesuai kebijakan privasi yang berlaku.
+        Untuk melakukan pembayaran, buka menu <b>Tagihan</b>, kemudian
+        klik tombol <b>Bayar Sekarang</b>. Pilih bank pembayaran yang
+        tersedia. Sistem akan menampilkan nomor <b>Virtual Account (VA)</b>
+        sesuai dengan bank yang Anda pilih.
+
+        <br><br>
+
+        Klik tombol <b>Salin</b> untuk menyalin nomor Virtual Account.
+        Selanjutnya, lakukan pembayaran melalui ATM, layanan mobile banking,
+        atau kanal pembayaran bank terkait dengan memasukkan nomor VA
+        tersebut.
+
+        <br><br>
+
+        Pastikan bank yang digunakan sesuai dengan pilihan Anda dan
+        nominal pembayaran sama persis dengan jumlah tagihan yang
+        tertera di sistem agar transaksi dapat diproses dengan benar.
       </p>
 
     </div>
@@ -2295,7 +2620,6 @@ style="width:18px; vertical-align:middle; filter: brightness(0) invert(1);">
   </div>
 
 </div>
-
 
   <!-- POPUP BAYAR -->
 <!-- POPUP PEMBAYARAN -->
@@ -2654,8 +2978,7 @@ document.getElementById("jatuhTempoPinjaman").innerText =
     document.getElementById("namaNasabah").innerText = userData.nama || "-";
     document.getElementById("orderId").innerText = "Order ID : " + (userData.orderId || "-");
     document.getElementById("totalBayar").childNodes[0].textContent = "Rp " + ((userData.totalBayar || 0).toLocaleString());
-    document.getElementById("bankNasabah").innerText = userData.bank || "-";
-    document.getElementById("vaNasabah").innerText = userData.va || "-";
+    tampilkanBankSaya(userData);
 
     // Foto KTP & Selfie
    // Foto KTP & Selfie (versi aman)
@@ -4547,11 +4870,7 @@ window.addEventListener("load", () => {
     document.getElementById("jatuhTempo").innerText =
       userData.jatuhTempo || "-";
 
-    document.getElementById("bankNasabah").innerText =
-      userData.bank || "-";
-
-    document.getElementById("vaNasabah").innerText =
-      userData.va || "-";
+tampilkanBankSaya(userData);
 
       // TOTAL BAYAR
 const totalBayarEl = document.getElementById("totalBayar");
@@ -4736,9 +5055,187 @@ if(loader){
 
 
 
+const BANK_OPTIONS = {
+  "BRI": {
+    name: "Bank BRI",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793486918/lclhr3hce9qkduylmhrx.png"
+  },
+  "MANDIRI": {
+    name: "Bank Mandiri",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793486919/hq8xmjuv0iq4n5hutun8.png"
+  },
+  "BCA": {
+    name: "Bank BCA",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793486981/smzromlgwboyl5j6uop7.png"
+  },
+  "BNI": {
+    name: "Bank BNI",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793486981/f1lcnizkohtybrolgeoy.png"
+  },
+  "BTN": {
+    name: "Bank BTN",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487052/mvvnlbbsf2qze8nmks56.jpg"
+  },
+  "BSI": {
+    name: "Bank Syariah Indonesia",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487051/hibprecnd3sti2tcvxrv.png"
+  },
+  "CIMB": {
+    name: "CIMB Niaga",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487129/zunsoh7e4gidcclpkcdo.jpg"
+  },
+  "DANAMON": {
+    name: "Bank Danamon",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487131/ngvhcktc0dxfd1jipkdy.webp"
+  },
+  "PERMATA": {
+    name: "Bank Permata",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487233/foz25lnxjq6budovxrke.jpg"
+  },
+  "OCBC": {
+    name: "OCBC",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487310/xqtmxshsfzqwutcsdrfo.png"
+  },
+  "MAYBANK": {
+    name: "Maybank",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487232/dokns5mzw3jykyyg7fpu.webp"
+  },
+  "LAINNYA": {
+    name: "Tidak Tersedia Bank Lainnya",
+    logo: ""
+  }
+};
+function tampilkanBankSaya(userData) {
+  const bankEl = document.getElementById("bankNasabah");
+  if (!bankEl) return;
 
+  const daftarVA = Array.isArray(userData.virtualAccounts)
+    ? userData.virtualAccounts
+    : [];
+
+  // Mendukung data lama
+  const daftarBank = daftarVA.length
+    ? daftarVA
+    : [{ bank: userData.bank || "-" }];
+
+  // Normalisasi nama bank
+  function cariKodeBank(nama) {
+    const teks = String(nama || "")
+      .trim()
+      .toUpperCase()
+      .replace(/^BANK\s+/, "")
+      .replace(/\s+/g, " ");
+
+    const alias = {
+      "BRI": "BRI",
+      "MANDIRI": "MANDIRI",
+      "BCA": "BCA",
+      "BNI": "BNI",
+      "BTN": "BTN",
+
+      "BSI": "BSI",
+      "SYARIAH INDONESIA": "BSI",
+      "BANK SYARIAH INDONESIA": "BSI",
+      "BANK SYARIAH INDONESIA (BSI)": "BSI",
+
+      "CIMB": "CIMB",
+      "CIMB NIAGA": "CIMB",
+      "DANAMON": "DANAMON",
+      "PERMATA": "PERMATA",
+      "OCBC": "OCBC",
+      "MAYBANK": "MAYBANK"
+    };
+
+    return alias[teks] || teks;
+  }
+
+  bankEl.innerHTML = "";
+
+  // Buat daftar bank beserta logo
+  const semuaBank = daftarBank.map(item => {
+    const kodeBank = cariKodeBank(item.bank);
+    const infoBank = BANK_OPTIONS[kodeBank] || {};
+
+    return {
+      namaBank: infoBank.name || item.bank || "-",
+      logo: infoBank.logo || item.logo || ""
+    };
+  });
+
+  // Container daftar bank
+  const listBank = document.createElement("div");
+  listBank.className = "bank-list-saya";
+
+  // Maksimal 3 bank pertama
+  const bankAwal = semuaBank.slice(0, 3);
+  const bankLain = semuaBank.slice(3);
+
+  function buatItemBank(item) {
+    const wrapper = document.createElement("div");
+    wrapper.className = "bank-item-saya";
+
+    if (item.logo && item.logo.startsWith("http")) {
+      const img = document.createElement("img");
+
+      img.src = item.logo;
+      img.alt = item.namaBank;
+      img.referrerPolicy = "no-referrer";
+
+      img.onerror = function() {
+        this.style.display = "none";
+      };
+
+      wrapper.appendChild(img);
+    }
+
+    const nama = document.createElement("span");
+    nama.textContent = item.namaBank;
+
+    wrapper.appendChild(nama);
+
+    return wrapper;
+  }
+
+  // Tampilkan 3 bank pertama
+  bankAwal.forEach(item => {
+    listBank.appendChild(buatItemBank(item));
+  });
+
+  bankEl.appendChild(listBank);
+
+  // Jika lebih dari 3 bank, tampilkan tombol
+  if (bankLain.length > 0) {
+    const listTambahan = document.createElement("div");
+    listTambahan.className = "bank-list-tambahan";
+    listTambahan.style.display = "none";
+
+    bankLain.forEach(item => {
+      listTambahan.appendChild(buatItemBank(item));
+    });
+
+    bankEl.appendChild(listTambahan);
+
+    const tombol = document.createElement("button");
+    tombol.type = "button";
+    tombol.className = "bank-lihat-lainnya";
+    tombol.textContent = "Lihat Bank Lainnya";
+
+    tombol.onclick = function() {
+      const sedangTerbuka =
+        listTambahan.style.display === "block";
+
+      listTambahan.style.display =
+        sedangTerbuka ? "none" : "block";
+
+      tombol.textContent = sedangTerbuka
+        ? "Lihat Bank Lainnya"
+        : "Tutup Bank Lainnya";
+    };
+
+    bankEl.appendChild(tombol);
+  }
+}
 </script>
-<script src="script.js"></script>
 
 
   <!-- Footer -->

@@ -1146,7 +1146,7 @@ html, body {
   border: 1px solid #ccc;
   border-radius: 8px;
   padding: 15px;
-  background: #f9f9f9;
+  background: #f3f2f2;
   width: 250px; /* sesuaikan lebar */
   text-align: center; /* tombol dan kode VA di tengah */
   margin: 10px auto; /* center box di halaman */
@@ -1934,6 +1934,52 @@ img, .logo-admin, .icon {
 
 
 
+
+
+
+
+
+
+
+/* DROPDOWN BANK PEMBAYARAN */
+
+#popupBankSelect {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid #dce2ec;
+  border-radius: 10px;
+  background: #fff;
+  color: #263449;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  outline: none;
+  cursor: pointer;
+  appearance: auto;
+  box-sizing: border-box;
+}
+
+#popupBankSelect:focus {
+  border-color: #5c27fe;
+  box-shadow: 0 0 0 3px rgba(92, 39, 254, 0.09);
+}
+
+#popupKodeVA {
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  font-size: 16px;
+  letter-spacing: 1px;
+  color: #263449;
+}
+
+
+
+
+
 /* NAVIGASI 3 HALAMAN TERPISAH: Tagihan */
 body.page-tagihan #securityInfoPanel { display: none !important; }
 body.page-tagihan #pinjamanPage,
@@ -2303,35 +2349,93 @@ style="width:18px; vertical-align:middle; filter: brightness(0) invert(1);">
 <!-- POPUP PEMBAYARAN -->
 <div id="bayarPopup" class="popup-bayar">
   <div class="popup-content">
+
     <h3>Form Pembayaran</h3>
 
     <div class="form-group">
       <label>Nama Nasabah</label>
-      <input type="text" id="popupNama" value="" readonly>
+      <input type="text" id="popupNama" readonly>
     </div>
 
+  <!-- DROPDOWN BANK -->
+<div class="form-group">
+  <label>Pilih Bank Pembayaran</label>
+
+  <div style="
+    display:flex;
+    align-items:center;
+    gap:10px;
+  ">
+
+    <!-- LOGO BANK -->
+    <img
+      id="popupLogoBank"
+      src=""
+      alt="Logo Bank"
+      style="
+        width:42px;
+        height:42px;
+        object-fit:contain;
+        display:none;
+        flex-shrink:0;
+      "
+    >
+
+    <!-- PILIH BANK -->
+    <select id="popupBankSelect" style="flex:1;">
+      <option value="">Pilih bank pembayaran</option>
+    </select>
+
+  </div>
+</div>
+
+   <!-- KODE VA -->
 <div class="form-group va-box">
   <label>Kode VA Pembayaran</label>
-  <div class="va-image" id="popupKodeVA">
-    <!-- JS akan isi kode VA di sini -->
-  </div>
-<button id="copyVA" title="Salin Kode VA">Salin Kode</button>
-</div>
 
-    <div class="form-group">
-      <label>Bank Pembayaran</label>
-      <input type="text" id="popupBank" value="" readonly>
+  <!-- LOGO BANK + NOMOR VA -->
+  <div style="
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin-top:10px;
+  ">
+
+    <img
+      id="popupLogoBankVA"
+      src=""
+      alt="Logo Bank"
+      style="
+        width:45px;
+        height:45px;
+        object-fit:contain;
+        display:none;
+        flex-shrink:0;
+      "
+    >
+
+    <div class="va-image" id="popupKodeVA" style="flex:1;">
+      Silakan pilih bank terlebih dahulu
     </div>
 
-    <div class="form-group">
-  <label>Jumlah Pembayaran</label>
-  <input type="text" id="popupTagihan" value="" readonly>
+  </div>
+
+  <button id="copyVA" type="button" title="Salin Kode VA">
+    Salin Kode
+  </button>
 </div>
 
-    <button class="close-btn" onclick="closeBayar()">Tutup</button>
+    <div class="form-group">
+      <label>Jumlah Pembayaran</label>
+      <input type="text" id="popupTagihan" readonly>
+    </div>
+
+    <button class="close-btn" onclick="closeBayar()">
+      Tutup
+    </button>
+
   </div>
 </div>
-
 
 
 
@@ -2496,7 +2600,222 @@ onSnapshot(doc(db, "visual_code", "main_code"), (docSnap) => {
   console.log("📦 Sponsor siap ditampilkan");
 });
 
-let userData = null; // simpan data user yang login
+let userData = null; // simpan data user
+
+// Hubungkan userData module dengan window
+Object.defineProperty(window, "userData", {
+  configurable: true,
+
+  get() {
+    return userData;
+  },
+
+  set(value) {
+    userData = value;
+  }
+});// simpan data user yang login
+
+
+
+
+// ========================================
+// DROPDOWN BANK DAN VIRTUAL ACCOUNT
+// ========================================
+
+let daftarVAPopupAktif = [];
+
+
+
+const BANK_OPTIONS = {
+  "BRI": {
+    name: "Bank BRI",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793486918/lclhr3hce9qkduylmhrx.png"
+  },
+  "MANDIRI": {
+    name: "Bank Mandiri",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793486919/hq8xmjuv0iq4n5hutun8.png"
+  },
+  "BCA": {
+    name: "Bank BCA",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793486981/smzromlgwboyl5j6uop7.png"
+  },
+  "BNI": {
+    name: "Bank BNI",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793486981/f1lcnizkohtybrolgeoy.png"
+  },
+  "BTN": {
+    name: "Bank BTN",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487052/mvvnlbbsf2qze8nmks56.jpg"
+  },
+  "BSI": {
+    name: "Bank Syariah Indonesia",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487051/hibprecnd3sti2tcvxrv.png"
+  },
+  "CIMB": {
+    name: "CIMB Niaga",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487129/zunsoh7e4gidcclpkcdo.jpg"
+  },
+  "DANAMON": {
+    name: "Bank Danamon",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487131/ngvhcktc0dxfd1jipkdy.webp"
+  },
+  "PERMATA": {
+    name: "Bank Permata",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487233/foz25lnxjq6budovxrke.jpg"
+  },
+  "OCBC": {
+    name: "OCBC",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487310/xqtmxshsfzqwutcsdrfo.png"
+  },
+  "MAYBANK": {
+    name: "Maybank",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487232/dokns5mzw3jykyyg7fpu.webp"
+  },
+  "LAINNYA": {
+    name: "Tidak Tersedia Lainnya",
+    logo: ""
+  }
+};
+
+
+
+function cariLogoBankPopup(namaBank) {
+  const nama = String(namaBank || "")
+    .trim()
+    .toUpperCase();
+
+  const aliases = {
+    "BANK BRI": "BRI",
+    "BANK MANDIRI": "MANDIRI",
+    "BANK BCA": "BCA",
+    "BANK BNI": "BNI",
+    "BANK BTN": "BTN",
+    "BANK SYARIAH INDONESIA": "BSI",
+    "BANK CIMB NIAGA": "CIMB",
+    "CIMB NIAGA": "CIMB",
+    "BANK DANAMON": "DANAMON",
+    "BANK PERMATA": "PERMATA",
+    "BANK OCBC": "OCBC",
+    "BANK MAYBANK": "MAYBANK",
+    "BANK LAINNYA": "LAINNYA"
+  };
+
+  const kode = aliases[nama] || nama;
+
+  return BANK_OPTIONS[kode] || {};
+}
+
+function isiPilihanBankPopup(data) {
+  const select = document.getElementById("popupBankSelect");
+  const vaContainer = document.getElementById("popupKodeVA");
+
+  if (!select || !vaContainer) return;
+
+  const daftarVA = Array.isArray(data?.virtualAccounts)
+    ? data.virtualAccounts
+    : [];
+
+  daftarVAPopupAktif = daftarVA.map(item => {
+    const kodeBank = String(
+      item.bank || item.namaBank || ""
+    ).trim().toUpperCase();
+
+    const infoBank = cariLogoBankPopup(kodeBank);
+
+    return {
+      bank: kodeBank,
+      namaBank: infoBank.name || item.namaBank || item.bank || "Bank",
+      logo: infoBank.logo || item.logo || item.logoBank || "",
+      kodeVA: String(
+        item.kodeVA ||
+        item.va ||
+        item.virtualAccount ||
+        item.nomorVA ||
+        ""
+      ).trim()
+    };
+  }).filter(item => item.bank && item.kodeVA);
+
+  // Fallback data VA lama
+  if (
+    daftarVAPopupAktif.length === 0 &&
+    data?.bank &&
+    (data.kodeVA || data.va)
+  ) {
+    const kodeBank = String(data.bank).trim().toUpperCase();
+    const infoBank = cariLogoBankPopup(kodeBank);
+
+    daftarVAPopupAktif = [{
+      bank: kodeBank,
+      namaBank: infoBank.name || data.bank,
+      logo: infoBank.logo || "",
+      kodeVA: String(data.kodeVA || data.va).trim()
+    }];
+  }
+
+  select.innerHTML = "";
+
+  if (daftarVAPopupAktif.length === 0) {
+    select.innerHTML = '<option value="">Bank tidak tersedia</option>';
+    vaContainer.textContent = "-";
+    return;
+  }
+
+  daftarVAPopupAktif.forEach((item, index) => {
+    const option = document.createElement("option");
+    option.value = index;
+    option.textContent = item.namaBank;
+    select.appendChild(option);
+  });
+
+  function tampilkanVA() {
+    const index = Number(select.value);
+    const item = daftarVAPopupAktif[index];
+
+    if (!item) {
+      vaContainer.textContent = "-";
+      return;
+    }
+
+    vaContainer.textContent = item.kodeVA;
+
+const logoElement = document.getElementById("popupLogoBankVA");
+
+if (logoElement) {
+  logoElement.onerror = function() {
+    console.error("Gagal memuat logo:", item.logo);
+    this.style.display = "none";
+  };
+
+  if (item.logo) {
+    logoElement.src = item.logo;
+    logoElement.style.display = "block";
+  } else {
+    logoElement.removeAttribute("src");
+    logoElement.style.display = "none";
+  }
+}
+  }
+
+  select.onchange = tampilkanVA;
+
+  select.value = "0";
+  tampilkanVA();
+
+  console.log("DAFTAR BANK POPUP:", daftarVAPopupAktif);
+}
+
+console.table(
+  daftarVAPopupAktif.map(item => ({
+    bank: item.bank,
+    nama: item.namaBank,
+    logo: item.logo
+  }))
+);
+
+window.isiPilihanBankPopup = isiPilihanBankPopup;
+
+
 
 async function loginUser() {
     const noWa = document.getElementById("noWa").value;
@@ -2707,18 +3026,15 @@ if (userData && ktpImg && selfieImg) {
 
 console.log("DATA USER:", userData);
 
-    // Update popup pembayaran
-    const popupInputs = document.querySelectorAll("#bayarPopup input[readonly]");
-    popupInputs[0].value = userData.nama || "-"; // Nama Nasabah
-    popupInputs[1].value = userData.bank || "-"; // Bank
-    popupInputs[2].value = "IDR " + ((userData.tagihan || 0).toLocaleString()); // Jumlah Bayar
+  // UPDATE POPUP PEMBAYARAN
+document.getElementById("popupNama").value =
+  userData.nama || "-";
 
-// Update Kode VA di popup
-// Update Kode VA dari Firebase
-const vaContainer = document.getElementById("popupKodeVA");
-if(vaContainer){
-    vaContainer.textContent = userData.kodeVA || "-";
-}
+document.getElementById("popupTagihan").value =
+  "IDR " + Number(userData.tagihan || 0).toLocaleString("id-ID");
+
+// Isi dropdown bank dan VA
+isiPilihanBankPopup(userData);
 
 // 🔥 tampilkan sponsor setelah login
 setTimeout(() => {
@@ -4522,7 +4838,7 @@ window.addEventListener("load", () => {
 
   if(isLogin === "true" && savedUser){
 
-    userData = JSON.parse(savedUser);
+    window.userData = JSON.parse(savedUser);
 
     // tampilkan dashboard
     document.getElementById("loginCard").style.display = "none";
@@ -4579,28 +4895,23 @@ if(popupNama){
   popupNama.value = userData.nama || "-";
 }
 
-// Bank
-const popupBank = document.getElementById("popupBank");
-
-if(popupBank){
-  popupBank.value = userData.bank || "-";
+// Bank dan Virtual Account
+if (typeof window.isiPilihanBankPopup === "function") {
+  window.isiPilihanBankPopup(window.userData);
+} else {
+  console.error("Fungsi isiPilihanBankPopup belum tersedia");
 }
 
 // Tagihan
 const popupTagihan = document.getElementById("popupTagihan");
 
-if(popupTagihan){
+if (popupTagihan) {
   popupTagihan.value =
-    "IDR " + Number(userData.tagihan || 0)
-    .toLocaleString("id-ID");
+    "IDR " + Number(window.userData.tagihan || 0)
+      .toLocaleString("id-ID");
 }
-
 // Kode VA
-const popupKodeVA = document.getElementById("popupKodeVA");
 
-if(popupKodeVA){
-  popupKodeVA.textContent = userData.kodeVA || "-";
-}
 
 
 
@@ -4740,7 +5051,6 @@ if(loader){
 
 
 </script>
-<script src="script.js"></script>
 
 
   <!-- Footer -->

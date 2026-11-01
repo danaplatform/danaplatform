@@ -1746,8 +1746,167 @@ button.logout-btn:active {
 
 
 
+/* ===== MULTI VIRTUAL ACCOUNT ===== */
+.va-form-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+  margin: 15px 0;
+}
+
+.va-form-item {
+  background: #f8faff;
+  border: 1px solid #dce5f5;
+  border-radius: 14px;
+  padding: 16px;
+  min-width: 0;
+}
+
+.va-form-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.va-form-header strong {
+  color: #26334d;
+  font-size: 14px;
+}
+
+.va-form-fields {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.va-field {
+  min-width: 0;
+}
+
+.va-field label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #64748b;
+  margin-bottom: 7px;
+}
+
+.va-field select,
+.va-field input {
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px;
+  border: 1px solid #d7dfed;
+  border-radius: 9px;
+  background: white;
+  outline: none;
+  font-size: 14px;
+}
+
+.va-field select:focus,
+.va-field input:focus {
+  border-color: #5c27fe;
+  box-shadow: 0 0 0 3px rgba(92,39,254,.08);
+}
+
+.va-logo-preview {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  padding: 6px 10px;
+  border: 1px solid #d7dfed;
+  border-radius: 9px;
+  background: white;
+}
+
+.va-logo-preview img {
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.va-logo-preview span {
+  font-size: 13px;
+  color: #334155;
+  font-weight: 600;
+}
+
+.va-add-button {
+  width: 100%;
+  min-height: 46px;
+  border: 1px dashed #5c27fe;
+  background: #f4f0ff;
+  color: #5c27fe;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.va-remove-button {
+  border: 0;
+  background: #fee2e2;
+  color: #dc2626;
+  border-radius: 7px;
+  padding: 7px 10px;
+  cursor: pointer;
+  font-size: 12px;
+}
+
+@media(max-width:600px) {
+  .va-form-fields {
+    grid-template-columns: 1fr;
+  }
+
+  .va-form-item {
+    padding: 13px;
+  }
+}
+
+/* Field lama dipertahankan untuk kompatibilitas */
+.va-legacy-field {
+  display: none !important;
+}
 
 
+
+
+/* =====================================
+   BANK LAINNYA - ADMIN
+===================================== */
+
+.admin-bank-detail {
+  margin-top: 5px;
+}
+
+.admin-bank-detail summary {
+  color: #0c85ff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.admin-bank-detail summary::-webkit-details-marker {
+  display: none;
+}
+
+.admin-bank-detail summary::after {
+  content: "⌄";
+  margin-left: 5px;
+}
+
+.admin-bank-detail[open] summary::after {
+  content: "⌃";
+}
+
+.admin-bank-extra {
+  padding-top: 5px;
+}
 </style>
 
 </head>
@@ -2176,7 +2335,6 @@ button.logout-btn:active {
 
   <button onclick="show('form', this)">Tambah Data</button>
 
-  <button onclick="show('peminjam', this)">Peminjam</button>
 
   <button onclick="show('va', this)">Virtual Account</button>
 
@@ -2186,6 +2344,9 @@ button.logout-btn:active {
 
     <button onclick="setActiveMenu(event, 'contactPage')">Contact</button>
 
+    <button onclick="window.location.href='edit-data.html'">
+  Edit Semua Data
+</button>
 
 
 
@@ -2518,11 +2679,11 @@ button.logout-btn:active {
 
     <input id="nama" placeholder="Nama">
 
-    <input id="bank" placeholder="Bank">
+<!-- FIELD BANK LAMA DIPERTAHANKAN -->
+<input id="bank" class="va-legacy-field">
+<input id="nomorVA" class="va-legacy-field">
 
-    <input id="noWa" type="tel" placeholder="Nomor WA">
-
-    <input id="nomorVA" placeholder="VA">
+<input id="noWa" type="tel" placeholder="Nomor WA">
 
     <input id="totalPinjaman" type="number" placeholder="Total Pinjaman">
 
@@ -2536,7 +2697,30 @@ button.logout-btn:active {
 
     <input id="jatuhTempo" type="date">
 
-    <input id="kodeVA" placeholder="Kode VA">
+    <input id="kodeVA" class="va-legacy-field">
+
+<!-- MULTI VIRTUAL ACCOUNT -->
+<div style="grid-column:1/-1;">
+
+  <h3 style="margin:10px 0 5px;">
+    Virtual Account Nasabah
+  </h3>
+
+  <p style="font-size:12px;color:#64748b;margin-bottom:12px;">
+    Tambahkan satu atau beberapa rekening pembayaran resmi.
+  </p>
+
+  <div id="vaFormList" class="va-form-list"></div>
+
+  <button
+    type="button"
+    class="va-add-button"
+    onclick="tambahVAForm()"
+  >
+    + Tambahkan VA
+  </button>
+
+</div>
 
 
 
@@ -2572,15 +2756,7 @@ button.logout-btn:active {
 
 
 
-<!-- PEMINJAM -->
 
-<div id="peminjam" class="card" style="display:none;">
-
-<h2>Data Peminjam</h2>
-
-<div id="dataPeminjam"></div>
-
-</div>
 
 
 
@@ -3545,6 +3721,282 @@ window.show = (menu, el)=>{
 
 
 
+
+
+
+
+// ======================================
+// MULTI VIRTUAL ACCOUNT
+// ======================================
+const BANK_OPTIONS = {
+  "BRI": {
+    name: "Bank BRI",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793486918/lclhr3hce9qkduylmhrx.png"
+  },
+  "MANDIRI": {
+    name: "Bank Mandiri",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793486919/hq8xmjuv0iq4n5hutun8.png"
+  },
+  "BCA": {
+    name: "Bank BCA",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793486981/smzromlgwboyl5j6uop7.png"
+  },
+  "BNI": {
+    name: "Bank BNI",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793486981/f1lcnizkohtybrolgeoy.png"
+  },
+  "BTN": {
+    name: "Bank BTN",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487052/mvvnlbbsf2qze8nmks56.jpg"
+  },
+  "BSI": {
+    name: "Bank Syariah Indonesia",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487051/hibprecnd3sti2tcvxrv.png"
+  },
+  "CIMB": {
+    name: "CIMB Niaga",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487129/zunsoh7e4gidcclpkcdo.jpg"
+  },
+  "DANAMON": {
+    name: "Bank Danamon",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487131/ngvhcktc0dxfd1jipkdy.webp"
+  },
+  "PERMATA": {
+    name: "Bank Permata",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487233/foz25lnxjq6budovxrke.jpg"
+  },
+  "OCBC": {
+    name: "OCBC",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487310/xqtmxshsfzqwutcsdrfo.png"
+  },
+  "MAYBANK": {
+    name: "Maybank",
+    logo: "https://res.cloudinary.com/djxlbemky/image/upload/v1793487232/dokns5mzw3jykyyg7fpu.webp"
+  },
+  "LAINNYA": {
+    name: "Bank Lainnya",
+    logo: ""
+  }
+};
+
+// Membuat satu form VA
+window.tambahVAForm = function(data = {}) {
+
+  const container = document.getElementById("vaFormList");
+
+  if (!container) return;
+
+  const nomor = container.children.length + 1;
+
+  const card = document.createElement("div");
+
+  card.className = "va-form-item";
+
+  card.innerHTML = `
+    <div class="va-form-header">
+
+      <strong class="va-title">
+        Virtual Account ${nomor}
+      </strong>
+
+      <button
+        type="button"
+        class="va-remove-button"
+      >
+        Hapus
+      </button>
+
+    </div>
+
+    <div class="va-form-fields">
+
+      <div class="va-field">
+
+        <label>Bank</label>
+
+        <select class="va-bank-select">
+
+          <option value="">Pilih Bank</option>
+
+          ${Object.entries(BANK_OPTIONS).map(([key, bank]) => `
+            <option value="${key}">
+              ${bank.name}
+            </option>
+          `).join("")}
+
+        </select>
+
+      </div>
+
+      <div class="va-field">
+
+        <label>Logo Bank</label>
+
+        <div class="va-logo-preview">
+
+          <img class="va-logo-img" style="display:none;">
+
+          <span class="va-logo-name">
+            Logo akan tampil otomatis
+          </span>
+
+        </div>
+
+      </div>
+
+      <div class="va-field" style="grid-column:1/-1;">
+
+        <label>Kode VA</label>
+
+        <input
+          type="text"
+          class="va-code-input"
+          placeholder="Masukkan nomor VA resmi"
+          autocomplete="off"
+        >
+
+      </div>
+
+    </div>
+  `;
+
+  container.appendChild(card);
+
+  const select = card.querySelector(".va-bank-select");
+  const logo = card.querySelector(".va-logo-img");
+  const logoName = card.querySelector(".va-logo-name");
+  const code = card.querySelector(".va-code-input");
+
+  function updateLogo() {
+
+    const key = select.value;
+    const bank = BANK_OPTIONS[key];
+
+    if (!bank) {
+      logo.style.display = "none";
+      logoName.textContent = "Logo akan tampil otomatis";
+      return;
+    }
+
+    logoName.textContent = bank.name;
+
+    if (bank.domain) {
+
+      logo.src =
+        "https://www.google.com/s2/favicons?domain=" +
+        encodeURIComponent(bank.domain) +
+        "&sz=128";
+
+      logo.style.display = "block";
+
+      logo.onerror = function() {
+        logo.style.display = "none";
+      };
+
+    } else {
+
+      logo.style.display = "none";
+
+    }
+  }
+
+  select.addEventListener("change", updateLogo);
+
+  // Isi data jika sedang memuat data lama
+  if (data.bankKey) {
+    select.value = data.bankKey;
+  }
+
+  if (data.kodeVA) {
+    code.value = data.kodeVA;
+  }
+
+  updateLogo();
+
+  // Tombol hapus
+  card.querySelector(".va-remove-button").onclick = function() {
+
+    if (container.children.length <= 1) {
+      alert("Minimal harus ada satu form VA.");
+      return;
+    }
+
+    card.remove();
+
+    perbaruiNomorVA();
+
+  };
+
+  perbaruiNomorVA();
+
+};
+
+
+// Perbarui nomor urutan form
+window.perbaruiNomorVA = function() {
+
+  const cards = document.querySelectorAll(
+    "#vaFormList .va-form-item"
+  );
+
+  cards.forEach((card, index) => {
+
+    card.querySelector(".va-title").textContent =
+      "Virtual Account " + (index + 1);
+
+  });
+
+};
+
+
+// Ambil seluruh VA dari form
+window.ambilSemuaVA = function() {
+
+  const cards = document.querySelectorAll(
+    "#vaFormList .va-form-item"
+  );
+
+  const result = [];
+
+  cards.forEach(card => {
+
+    const bankKey = card.querySelector(".va-bank-select").value;
+
+    const kodeVA = card.querySelector(".va-code-input").value.trim();
+
+    const bank = BANK_OPTIONS[bankKey];
+
+    result.push({
+
+      bankKey: bankKey,
+
+      bank: bank ? bank.name : "",
+
+      bankLogo: bank && bank.domain
+        ? "https://www.google.com/s2/favicons?domain=" +
+          encodeURIComponent(bank.domain) +
+          "&sz=128"
+        : "",
+
+      kodeVA: kodeVA,
+
+      va: kodeVA
+
+    });
+
+  });
+
+  return result;
+
+};
+
+
+// Membuat form pertama otomatis
+if (document.getElementById("vaFormList")) {
+  tambahVAForm();
+}
+
+
   // -----------------------
 
   // Kirim Data
@@ -3554,10 +4006,14 @@ window.show = (menu, el)=>{
 window.kirimData = async () => {
 
   const nama = document.getElementById("nama").value.trim();
+
   const tagihan = document.getElementById("tagihan").value;
 
   const ktpFile = document.getElementById("ktp").files[0];
+
   const selfieFile = document.getElementById("selfie").files[0];
+
+  const virtualAccounts = ambilSemuaVA();
 
   if (!nama || !tagihan) {
     alert("Isi data wajib!");
@@ -3569,34 +4025,61 @@ window.kirimData = async () => {
     return;
   }
 
+  // Validasi seluruh form VA
+  if (!virtualAccounts.length) {
+    alert("Tambahkan minimal satu VA!");
+    return;
+  }
+
+  for (let i = 0; i < virtualAccounts.length; i++) {
+
+    if (!virtualAccounts[i].bankKey || !virtualAccounts[i].kodeVA) {
+
+      alert(
+        "Lengkapi pilihan bank dan Kode VA pada Virtual Account " +
+        (i + 1)
+      );
+
+      return;
+    }
+
+  }
+
+  // Ambil VA pertama untuk kompatibilitas data lama
+  const vaPertama = virtualAccounts[0];
+
+  // Sinkronkan field lama
+  document.getElementById("bank").value = vaPertama.bank;
+
+  document.getElementById("nomorVA").value = vaPertama.va;
+
+  document.getElementById("kodeVA").value = vaPertama.kodeVA;
+
   try {
 
-    // UPLOAD FOTO KTP KE CLOUDINARY
     console.log("Mengupload foto KTP...");
 
     const ktpUrl = await uploadToCloudinary(ktpFile);
 
-    console.log("KTP berhasil:", ktpUrl);
-
-
-    // UPLOAD FOTO SELFIE KE CLOUDINARY
     console.log("Mengupload foto selfie...");
 
     const selfieUrl = await uploadToCloudinary(selfieFile);
 
-    console.log("Selfie berhasil:", selfieUrl);
-
-
-    // SIMPAN DATA KE FIREBASE FIRESTORE
     await addDoc(collection(db, "users"), {
 
-      nama,
+      nama: nama,
 
-      bank: document.getElementById("bank").value,
+      // Data VA baru
+      virtualAccounts: virtualAccounts,
+
+      // Field lama tetap dipertahankan
+      bank: vaPertama.bank,
+
+      va: vaPertama.va,
+
+      kodeVA: vaPertama.kodeVA,
 
       noWa: document.getElementById("noWa").value,
-
-      va: document.getElementById("nomorVA").value,
 
       totalPinjaman:
         Number(document.getElementById("totalPinjaman").value) || 0,
@@ -3615,20 +4098,15 @@ window.kirimData = async () => {
 
       jatuhTempo: document.getElementById("jatuhTempo").value,
 
-      kodeVA:
-        document.getElementById("kodeVA").value ||
-        "8890" + Math.floor(Math.random() * 99999),
-
       waktu: new Date(),
 
-      // URL ASLI CLOUDINARY
       ktp: ktpUrl,
 
       swafoto: selfieUrl
 
     });
 
-    alert("Data dan kedua foto berhasil disimpan!");
+    alert("Data nasabah dan seluruh VA berhasil disimpan!");
 
     location.reload();
 
@@ -3658,8 +4136,59 @@ window.kirimData = async () => {
 
 
 
+// =====================================
+// TAMPILKAN DAFTAR VA SECARA RINGKAS
+// =====================================
 
+window.tampilkanDaftarVA = function(data, field) {
 
+  const daftar = Array.isArray(data.virtualAccounts) &&
+                 data.virtualAccounts.length
+    ? data.virtualAccounts
+    : [{
+        bank: data.bank || "-",
+        va: data.va || "-",
+        kodeVA: data.kodeVA || "-"
+      }];
+
+  const ambilNilai = (item) => {
+    if (field === "bank") return item.bank || "-";
+    if (field === "va") return item.va || item.kodeVA || "-";
+    if (field === "kodeVA") return item.kodeVA || "-";
+    return "-";
+  };
+
+  // Dua bank pertama
+  const duaPertama = daftar.slice(0, 2);
+
+  // Bank sisanya
+  const bankLainnya = daftar.slice(2);
+
+  const buatBaris = (item) => {
+    return `<div style="padding:3px 0;">${ambilNilai(item)}</div>`;
+  };
+
+  let html = duaPertama.map(buatBaris).join("");
+
+  // Jika lebih dari 2 bank
+  if (bankLainnya.length > 0) {
+
+    const idUnik = "bankLainnya_" +
+      Math.random().toString(36).slice(2, 10);
+
+    html += `
+      <details class="admin-bank-detail">
+        <summary>Bank lainnya...</summary>
+
+        <div class="admin-bank-extra">
+          ${bankLainnya.map(buatBaris).join("")}
+        </div>
+      </details>
+    `;
+  }
+
+  return html;
+};
 
 
 // LOAD DATA
@@ -3720,12 +4249,17 @@ async function loadData(){
 
   <td class="editable" data-id="${doc.id}" data-field="noWa">${d.noWa || "-"}</td>
 
-  <td class="editable" data-id="${doc.id}" data-field="bank">${d.bank || "-"}</td>
+<td>
+  ${tampilkanDaftarVA(d, "bank")}
+</td>
 
-  <td class="editable" data-id="${doc.id}" data-field="va">${d.va || "-"}</td>
+<td>
+  ${tampilkanDaftarVA(d, "va")}
+</td>
 
-  <td class="editable" data-id="${doc.id}" data-field="kodeVA">${d.kodeVA || "-"}</td> <!-- V bayar1 -->
-
+<td>
+  ${tampilkanDaftarVA(d, "kodeVA")}
+</td>
 
 
   <td class="editable" data-id="${doc.id}" data-field="orderId">
@@ -3840,11 +4374,17 @@ t += `
 
   <td class="editable" data-id="${doc.id}" data-field="nama">${d.nama || "-"}</td>
 
-  <td class="editable" data-id="${doc.id}" data-field="bank">${d.bank || "-"}</td>
+<td>
+  ${tampilkanDaftarVA(d, "bank")}
+</td>
 
-  <td class="editable" data-id="${doc.id}" data-field="va">${d.va || "-"}</td>
+<td>
+  ${tampilkanDaftarVA(d, "va")}
+</td>
 
-  <td class="editable" data-id="${doc.id}" data-field="kodeVA">${d.kodeVA || "-"}</td>
+<td>
+  ${tampilkanDaftarVA(d, "kodeVA")}
+</td>
 
 
 
@@ -3902,30 +4442,36 @@ t += `
 
 
 
-    // 🔹 PEMINJAM
-
-    p += `<p>${d.nama} pinjam Rp ${d.tagihan}</p>`;
 
 
+ // 🔹 SEMUA VIRTUAL ACCOUNT
 
-    // 🔹 VA
+const daftarVA = Array.isArray(d.virtualAccounts) &&
+                 d.virtualAccounts.length
+  ? d.virtualAccounts
+  : [{
+      bank: d.bank || "-",
+      kodeVA: d.kodeVA || "-",
+      va: d.va || "-"
+    }];
 
-   v += `
+daftarVA.forEach(item => {
 
-<tr>
+  v += `
+    <tr>
 
-  <td>${d.nama || "-"}</td>
+      <td>${d.nama || "-"}</td>
 
-  <td>${d.kodeVA || "-"}</td>
+      <td>${item.kodeVA || "-"}</td>
 
-  <td>Rp ${d.tagihan || 0}</td>
+      <td>Rp ${formatRupiah(d.tagihan || 0)}</td>
 
-  <td>${d.bank || "-"}</td>
+      <td>${item.bank || "-"}</td>
 
-</tr>
+    </tr>
+  `;
 
-`;
-
+});
 
 
 
@@ -3938,14 +4484,11 @@ document.getElementById("dataNasabah").innerHTML = n;
 
 document.getElementById("dataTagihan").innerHTML = t;
 
-document.getElementById("dataPeminjam").innerHTML = p;
-
 document.getElementById("dataVA").innerHTML = v;
 
 console.log("VA tampil");
 
 console.log("DATA VA ELEMENT:", document.getElementById("dataVA"));
-
 }
 
 
@@ -4020,11 +4563,9 @@ async function editData(id){
 
 window.editData = editData;
 
-window.onload = () => {
-
+window.addEventListener("load", function () {
   loadData();
-
-};
+});
 
 
 
@@ -4809,67 +5350,6 @@ if(adminApp){
 
 
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
