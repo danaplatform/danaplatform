@@ -1483,6 +1483,7 @@ function buatEntryVA(account, index, mode = "array") {
       original: account,
       bankKey: "",
       numberKey: "",
+      numberKeys: [],
       bank: "Virtual Account " + (index + 1),
       number: account
     };
@@ -1500,19 +1501,32 @@ function buatEntryVA(account, index, mode = "array") {
     "bank"
   );
 
-  const numberKey = deteksiKunci(
-    original,
-    ["nomor", "va", "kodeVA", "nomorVA", "accountNumber"],
-    "nomor"
+  const numberKeys = [
+    "nomor",
+    "va",
+    "kodeVA",
+    "nomorVA",
+    "accountNumber"
+  ].filter(key =>
+    Object.prototype.hasOwnProperty.call(original, key)
   );
+
+  const numberKey = numberKeys[0] || "va";
+
+  const number =
+    original.va ??
+    original.kodeVA ??
+    original[numberKey] ??
+    "";
 
   return {
     mode: mode,
     original: original,
     bankKey: bankKey,
     numberKey: numberKey,
+    numberKeys: numberKeys,
     bank: String(original[bankKey] ?? ""),
-    number: String(original[numberKey] ?? "")
+    number: String(number)
   };
 
 }
@@ -1722,11 +1736,11 @@ function tambahVirtualAccount() {
 // =====================================
 // BANGUN ULANG DATA VIRTUAL ACCOUNT
 // =====================================
-
 function bangunVirtualAccounts(dataLama) {
 
   ambilNilaiVA();
 
+  // FORMAT ARRAY
   if (Array.isArray(dataLama)) {
 
     return vaEntries.map(entry => {
@@ -1735,10 +1749,28 @@ function bangunVirtualAccounts(dataLama) {
         return entry.number;
       }
 
-      const account = { ...entry.original };
+      const account = {
+        ...entry.original
+      };
 
+      // Perbarui nama bank
       account[entry.bankKey || "bank"] = entry.bank;
-      account[entry.numberKey || "nomor"] = entry.number;
+
+      // Ambil semua field nomor VA yang memang sudah ada
+      let numberKeys = Array.isArray(entry.numberKeys)
+        ? [...entry.numberKeys]
+        : [];
+
+      // Jika data lama tidak mempunyai field nomor,
+      // gunakan va dan kodeVA agar kompatibel.
+      if (!numberKeys.length) {
+        numberKeys = ["va", "kodeVA"];
+      }
+
+      // Perbarui semua field nomor secara bersamaan
+      numberKeys.forEach(key => {
+        account[key] = entry.number;
+      });
 
       return account;
 
@@ -1746,6 +1778,7 @@ function bangunVirtualAccounts(dataLama) {
 
   }
 
+  // FORMAT OBJECT MAP
   if (
     dataLama &&
     typeof dataLama === "object"
@@ -1767,12 +1800,30 @@ function bangunVirtualAccounts(dataLama) {
 
   }
 
+  // FORMAT ARRAY BARU
   return vaEntries.map(entry => {
 
-    const account = { ...entry.original };
+    if (entry.mode === "string") {
+      return entry.number;
+    }
+
+    const account = {
+      ...entry.original
+    };
 
     account[entry.bankKey || "bank"] = entry.bank;
-    account[entry.numberKey || "nomor"] = entry.number;
+
+    let numberKeys = Array.isArray(entry.numberKeys)
+      ? [...entry.numberKeys]
+      : [];
+
+    if (!numberKeys.length) {
+      numberKeys = ["va", "kodeVA"];
+    }
+
+    numberKeys.forEach(key => {
+      account[key] = entry.number;
+    });
 
     return account;
 
