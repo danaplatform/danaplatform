@@ -2812,6 +2812,23 @@ window.tampilkanSponsorAdmin = function() {
   userLogin: sponsorUserLoggedIn
 });
 
+
+// MENUTUP SELURUH PEMBUNGKUS IKLAN SPONSOR
+window.addEventListener("message", function(event) {
+
+    if (event.data === "sponsor-ad-close") {
+
+        const wrap = document.getElementById("sponsorAdFrameWrap");
+
+        if (wrap) {
+            wrap.remove();
+        }
+
+    }
+
+});
+
+
 if (!sponsorHTML || !window.sponsorUserLoggedIn) return;
   document.getElementById("sponsorAdFrameWrap")?.remove();
 

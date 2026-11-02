@@ -1,0 +1,331 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<meta name="theme-color" content="#0c85ff">
+<title>Belum Ada Penawaran</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background: #f3f6fc;
+    color: #202c42;
+}
+
+.penawaran-page {
+    width: 100%;
+    max-width: 600px;
+    min-height: 100vh;
+    margin: auto;
+    background: #fff;
+}
+
+/* HEADER */
+.penawaran-header {
+    height: 62px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 0 20px;
+    background: #fff;
+    border-bottom: 1px solid #edf0f5;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.penawaran-back {
+    width: 36px;
+    height: 36px;
+    border: none;
+    border-radius: 11px;
+    background: #f0f5ff;
+    color: #0c85ff;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.penawaran-header h2 {
+    font-size: 16px;
+    font-weight: 700;
+    color: #25334c;
+}
+
+/* CONTENT */
+.penawaran-content {
+    padding: 35px 22px 30px;
+}
+
+/* ILLUSTRATION */
+.penawaran-illustration {
+    width: 175px;
+    height: 175px;
+    margin: 15px auto 27px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: linear-gradient(145deg, #edf5ff, #e4edff);
+}
+
+.penawaran-illustration::before,
+.penawaran-illustration::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    border: 1px solid rgba(12,133,255,.16);
+}
+
+.penawaran-illustration::before {
+    inset: -12px;
+}
+
+.penawaran-illustration::after {
+    inset: -23px;
+    border-style: dashed;
+    border-color: rgba(12,133,255,.13);
+}
+
+.penawaran-main-icon {
+    width: 105px;
+    height: 105px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 30px;
+    background: linear-gradient(145deg, #168cff, #4d62ed);
+    color: #fff;
+    font-size: 42px;
+    box-shadow: 0 15px 30px rgba(12,133,255,.23);
+    transform: rotate(-7deg);
+}
+
+.penawaran-star {
+    position: absolute;
+    color: #f5b942;
+    font-size: 19px;
+}
+
+.penawaran-star.star-one {
+    top: 10px;
+    right: 14px;
+}
+
+.penawaran-star.star-two {
+    bottom: 22px;
+    left: 5px;
+    font-size: 14px;
+}
+
+/* TEXT */
+.penawaran-status {
+    display: table;
+    margin: 0 auto 15px;
+    padding: 7px 13px;
+    border-radius: 30px;
+    background: #fff5df;
+    color: #c58a22;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: .7px;
+}
+
+.penawaran-title {
+    text-align: center;
+    font-size: 23px;
+    line-height: 1.4;
+    font-weight: 800;
+    color: #25334c;
+    margin-bottom: 12px;
+}
+
+.penawaran-description {
+    max-width: 420px;
+    margin: auto;
+    text-align: center;
+    color: #8490a4;
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+/* INFO CARD */
+.penawaran-info {
+    margin-top: 30px;
+    padding: 20px;
+    border: 1px solid #e6edfa;
+    border-radius: 17px;
+    background: linear-gradient(135deg, #f8faff, #eef5ff);
+}
+
+.penawaran-info-title {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 13px;
+    color: #2e5caa;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.penawaran-info-title i {
+    width: 31px;
+    height: 31px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #dceaff;
+    color: #0c85ff;
+}
+
+.penawaran-info p {
+    color: #697991;
+    font-size: 11px;
+    line-height: 1.9;
+}
+
+.penawaran-info strong {
+    color: #315ca1;
+}
+
+/* REMINDER */
+.penawaran-reminder {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    margin-top: 19px;
+    padding: 15px;
+    border-radius: 13px;
+    background: #f7f8fa;
+}
+
+.penawaran-reminder i {
+    margin-top: 3px;
+    color: #0c85ff;
+    font-size: 16px;
+}
+
+.penawaran-reminder p {
+    color: #8490a4;
+    font-size: 10px;
+    line-height: 1.8;
+}
+
+/* FOOTER */
+.penawaran-footer {
+    padding: 25px 15px;
+    text-align: center;
+    color: #a2acbb;
+    font-size: 10px;
+}
+
+@media(max-width:380px) {
+    .penawaran-title {
+        font-size: 21px;
+    }
+
+    .penawaran-content {
+        padding-left: 17px;
+        padding-right: 17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="penawaran-page">
+
+    <header class="penawaran-header">
+        <button class="penawaran-back"
+            onclick="window.history.back()"
+            aria-label="Kembali">
+            <i class="fa-solid fa-arrow-left"></i>
+        </button>
+
+        <h2>Penawaran</h2>
+    </header>
+
+    <main class="penawaran-content">
+
+        <div class="penawaran-illustration">
+
+            <div class="penawaran-main-icon">
+                <i class="fa-solid fa-gift"></i>
+            </div>
+
+            <i class="fa-solid fa-star penawaran-star star-one"></i>
+            <i class="fa-solid fa-star penawaran-star star-two"></i>
+
+        </div>
+
+        <div class="penawaran-status">
+            <i class="fa-solid fa-clock"></i>
+            BELUM TERSEDIA
+        </div>
+
+        <h1 class="penawaran-title">
+            Belum Ada Penawaran Saat Ini
+        </h1>
+
+        <p class="penawaran-description">
+            Saat ini belum terdapat penawaran khusus yang tersedia
+            untuk akun Anda. Silakan periksa kembali secara berkala
+            untuk mendapatkan informasi penawaran terbaru.
+        </p>
+
+        <div class="penawaran-info">
+
+            <div class="penawaran-info-title">
+                <i class="fa-solid fa-medal"></i>
+                Jaga Reputasi Akun Anda
+            </div>
+
+            <p>
+                Teruslah menjaga nama baik dan reputasi diri Anda.
+                Pertahankan riwayat penggunaan akun yang baik,
+                penuhi kewajiban tepat waktu, dan gunakan layanan
+                secara bertanggung jawab agar Anda memiliki peluang
+                memperoleh <strong>penawaran yang lebih baik dengan
+                nilai yang lebih besar</strong> di kemudian hari.
+            </p>
+
+        </div>
+
+        <div class="penawaran-reminder">
+            <i class="fa-solid fa-circle-info"></i>
+
+            <p>
+                Penawaran dapat berbeda untuk setiap pengguna dan
+                bergantung pada kebijakan serta hasil evaluasi yang
+                berlaku. Tidak ada jaminan bahwa penawaran tertentu
+                akan diberikan.
+            </p>
+        </div>
+
+    </main>
+
+    <footer class="penawaran-footer">
+        Informasi Penawaran
+    </footer>
+
+</div>
+
+</body>
+</html>
