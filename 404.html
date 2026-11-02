@@ -1,0 +1,286 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#0c85ff">
+
+<title>404 - Halaman Tidak Ditemukan</title>
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: 'Poppins', sans-serif;
+    background:
+        radial-gradient(circle at 10% 10%, #e2efff 0, transparent 35%),
+        radial-gradient(circle at 90% 90%, #e9eaff 0, transparent 35%),
+        #f5f8ff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    color: #26344d;
+}
+
+.error-container {
+    width: 100%;
+    max-width: 470px;
+    padding: 35px 25px;
+    text-align: center;
+    background: #fff;
+    border: 1px solid #edf1fa;
+    border-radius: 25px;
+    box-shadow: 0 15px 50px rgba(31,70,130,.08);
+}
+
+/* LOGO / BRAND */
+.error-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 30px;
+    color: #0c85ff;
+    font-size: 16px;
+    font-weight: 800;
+    letter-spacing: -.4px;
+}
+
+.error-brand i {
+    font-size: 20px;
+}
+
+/* 404 ILLUSTRATION */
+.error-illustration {
+    position: relative;
+    width: 220px;
+    height: 175px;
+    margin: 0 auto 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.error-number {
+    font-size: 94px;
+    font-weight: 800;
+    letter-spacing: -8px;
+    line-height: 1;
+    background: linear-gradient(135deg,#087fff,#6c61ed);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+
+.error-search {
+    position: absolute;
+    right: 7px;
+    bottom: 12px;
+    width: 65px;
+    height: 65px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(145deg,#0c85ff,#625be8);
+    color: #fff;
+    font-size: 27px;
+    border: 6px solid #fff;
+    box-shadow: 0 8px 20px rgba(12,133,255,.22);
+    transform: rotate(-15deg);
+}
+
+.error-decoration {
+    position: absolute;
+    color: #ffbd4a;
+    font-size: 17px;
+}
+
+.decoration-one {
+    top: 15px;
+    left: 20px;
+}
+
+.decoration-two {
+    right: 12px;
+    top: 25px;
+    color: #a7b9ff;
+    font-size: 13px;
+}
+
+.decoration-three {
+    left: 28px;
+    bottom: 20px;
+    color: #a7b9ff;
+    font-size: 12px;
+}
+
+/* TEXT */
+.error-label {
+    display: inline-block;
+    padding: 7px 13px;
+    margin-bottom: 13px;
+    border-radius: 30px;
+    background: #edf5ff;
+    color: #0c85ff;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.error-title {
+    font-size: 22px;
+    line-height: 1.4;
+    font-weight: 800;
+    color: #26344d;
+    margin-bottom: 11px;
+}
+
+.error-description {
+    max-width: 350px;
+    margin: 0 auto;
+    color: #8994a8;
+    font-size: 12px;
+    line-height: 1.9;
+}
+
+/* BUTTONS */
+.error-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 11px;
+    margin-top: 27px;
+}
+
+.error-button {
+    width: 100%;
+    min-height: 47px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 9px;
+    border-radius: 12px;
+    font-family: inherit;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: .2s;
+}
+
+.error-button.primary {
+    color: #fff;
+    background: linear-gradient(110deg,#087fff,#4269ec);
+    box-shadow: 0 7px 17px rgba(12,133,255,.18);
+}
+
+.error-button.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(12,133,255,.25);
+}
+
+.error-button.secondary {
+    color: #50617d;
+    background: #f1f5fb;
+    border: 1px solid #e8edf5;
+}
+
+.error-button.secondary:hover {
+    background: #e8f0ff;
+    color: #0c85ff;
+}
+
+.error-footer {
+    margin-top: 27px;
+    padding-top: 17px;
+    border-top: 1px solid #edf0f5;
+    color: #a4adbc;
+    font-size: 10px;
+}
+
+@media(max-width:380px) {
+    .error-container {
+        padding: 28px 18px;
+    }
+
+    .error-title {
+        font-size: 20px;
+    }
+
+    .error-number {
+        font-size: 83px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="error-container">
+
+    <div class="error-brand">
+        <i class="fa-solid fa-shield-halved"></i>
+        PINJAMANKU
+    </div>
+
+    <div class="error-illustration">
+
+        <i class="fa-solid fa-star error-decoration decoration-one"></i>
+        <i class="fa-solid fa-circle error-decoration decoration-two"></i>
+        <i class="fa-solid fa-star error-decoration decoration-three"></i>
+
+        <div class="error-number">404</div>
+
+        <div class="error-search">
+            <i class="fa-solid fa-magnifying-glass"></i>
+        </div>
+
+    </div>
+
+    <div class="error-label">
+        ERROR 404
+    </div>
+
+    <h1 class="error-title">
+        Halaman Tidak Ditemukan
+    </h1>
+
+    <p class="error-description">
+        Maaf, halaman yang Anda cari tidak tersedia,
+        mungkin telah dipindahkan, dihapus, atau alamat
+        yang Anda masukkan tidak benar.
+    </p>
+
+    <div class="error-actions">
+
+        <a href="index.html" class="error-button primary">
+            <i class="fa-solid fa-house"></i>
+            Kembali ke Halaman Utama
+        </a>
+
+        <a href="saya.html" class="error-button secondary">
+            <i class="fa-solid fa-user"></i>
+            Kembali ke Akun Saya
+        </a>
+
+    </div>
+
+    <div class="error-footer">
+        © PINJAMANKU · Layanan Informasi Pengguna
+    </div>
+
+</main>
+
+</body>
+</html>
